@@ -127,10 +127,15 @@
     handleScroll();
 
     // Burger menu toggle
+    // Hide the nav on load
+    nav.style.display = 'none';
+
     function toggleMenu() {
-      nav.classList.toggle('burger-nav-hidden');
-      overlay.classList.toggle('overlay-active');
-      document.body.classList.toggle('no-scroll');
+      var isOpen = nav.style.display === 'block';
+      nav.style.display = isOpen ? 'none' : 'block';
+      burger.classList.toggle('clicked', !isOpen);
+      overlay.classList.toggle('show', !isOpen);
+      document.body.classList.toggle('no-scroll', !isOpen);
     }
 
     if (burger) burger.addEventListener('click', toggleMenu);
