@@ -1,0 +1,26 @@
+title: ConsentWise
+description: Open Banking Live Account Testing
+url: "https://consentwise.io"
+baseurl: ""
+
+# Collections
+collections:
+  services:
+    output: true
+    permalink: /:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: services
+    values:
+      layout: service
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+# Markdown
+markdown: kramdown
