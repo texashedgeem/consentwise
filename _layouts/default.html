@@ -17,32 +17,48 @@
   <!-- Theme CSS -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- Burger nav panel styles (missing from extracted theme CSS) -->
+  <!-- Burger nav styles -->
   <style>
+    /* Nav panel: hidden by default, shown when body has .nav-open */
     .burger-nav {
+      display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: #202020;
-      z-index: 99999;
+      z-index: 9000;
       overflow-y: auto;
+      padding: 100px 50px 50px;
+      box-sizing: border-box;
     }
-    .burger-nav ul.main li a,
-    .burger-nav ul.sub li a {
+    body.nav-open .burger-nav { display: block; }
+
+    .burger-nav ul { list-style: none; padding: 0; margin: 0 0 30px; }
+    .burger-nav ul li a {
       color: #fff;
-      font-size: 2rem;
+      font-size: 2.4rem;
       font-family: 'Poppins', sans-serif;
       font-weight: 300;
       text-decoration: none;
       display: block;
-      margin-bottom: 20px;
+      padding: 12px 0;
+      border-bottom: 1px solid #ffffff15;
     }
-    .burger-nav ul.main li a:hover,
-    .burger-nav ul.sub li a:hover { color: #ff214f; }
-    .burger-nav ul { list-style: none; padding: 0; margin: 0; }
-    .overlay { z-index: 99998; }
+    .burger-nav ul li a:hover { color: #ff214f; }
+
+    /* Overlay: hidden by default */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(255,33,79,0.5);
+      z-index: 8999;
+    }
+    body.nav-open .overlay { display: block; }
+
+    /* Keep burger icon above the nav panel */
+    .burger { z-index: 9001 !important; }
   </style>
 
   <!-- Lordicon -->
@@ -155,16 +171,10 @@
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    // Burger menu toggle
-    // Hide the nav on load
-    nav.style.display = 'none';
-
+    // Burger menu: toggle .nav-open on body to show/hide everything
     function toggleMenu() {
-      var isOpen = nav.style.display === 'block';
-      nav.style.display = isOpen ? 'none' : 'block';
-      burger.classList.toggle('clicked', !isOpen);
-      overlay.classList.toggle('show', !isOpen);
-      document.body.classList.toggle('no-scroll', !isOpen);
+      document.body.classList.toggle('nav-open');
+      burger.classList.toggle('clicked');
     }
 
     if (burger) burger.addEventListener('click', toggleMenu);
