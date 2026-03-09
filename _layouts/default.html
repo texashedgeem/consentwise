@@ -66,28 +66,29 @@
     <!-- Burger menu -->
     <div class="burger"><span></span></div>
 
-    <nav class="burger-nav burger-nav-hidden">
-      <div class="burger-main-div">
-        <div class="burger-inner-div">
-          <ul class="main">
-            <li class="menu-item"><a href="/about-us/">About Us</a></li>
-            <li class="menu-item"><a href="/services/">Services</a></li>
-            <li class="menu-item"><a href="https://open-banking.atlassian.net/servicedesk/customer/portal/1" target="_blank">Request Test</a></li>
-          </ul>
-          <div class="about"></div>
-          <div class="social"></div>
-          <ul class="sub">
-            <li><a href="#0">Terms and Conditions</a></li>
-            <li><a href="#0">Privacy Notices</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="overlay"></div>
-
   </div>
 </header>
+
+<!-- Burger nav and overlay live outside the header to avoid stacking context issues -->
+<nav class="burger-nav">
+  <div class="burger-main-div">
+    <div class="burger-inner-div">
+      <ul class="main">
+        <li class="menu-item"><a href="/about-us/">About Us</a></li>
+        <li class="menu-item"><a href="/services/">Services</a></li>
+        <li class="menu-item"><a href="https://open-banking.atlassian.net/servicedesk/customer/portal/1" target="_blank">Request Test</a></li>
+      </ul>
+      <div class="about"></div>
+      <div class="social"></div>
+      <ul class="sub">
+        <li><a href="#0">Terms and Conditions</a></li>
+        <li><a href="#0">Privacy Notices</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="overlay"></div>
 
 {{ content }}
 
