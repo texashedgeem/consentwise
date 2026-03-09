@@ -105,7 +105,7 @@
     var burger  = document.querySelector('.burger');
     var nav     = document.querySelector('.burger-nav');
     var overlay = document.querySelector('.overlay');
-    var isHome  = {{ page.url == '/' | json }};
+    var isHome  = {% if page.url == '/' %}true{% else %}false{% endif %};
 
     // On non-home pages the header is always dark
     if (!isHome) {
