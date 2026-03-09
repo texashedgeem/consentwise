@@ -19,21 +19,7 @@
 
   <!-- Burger nav styles -->
   <style>
-    .burger-nav {
-      display: none !important;
-      position: fixed !important;
-      top: 0 !important; left: 0 !important;
-      width: 100% !important; height: 100% !important;
-      background: #202020 !important;
-      z-index: 9000 !important;
-      overflow-y: auto !important;
-      padding: 100px 50px 50px !important;
-      box-sizing: border-box !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-    body.nav-open .burger-nav { display: block !important; }
-
+    /* Nav link styling — positioning/show/hide is handled entirely by JS */
     .burger-nav ul { list-style: none; padding: 0; margin: 0 0 30px; }
     .burger-nav ul li a {
       color: #fff !important;
@@ -47,6 +33,7 @@
     }
     .burger-nav ul li a:hover { color: #ff214f !important; }
 
+    /* Overlay visibility driven by body class */
     .overlay {
       opacity: 0 !important;
       visibility: hidden !important;
@@ -57,6 +44,7 @@
       visibility: visible !important;
     }
 
+    /* Burger always on top */
     .burger { z-index: 9001 !important; }
   </style>
 
@@ -170,14 +158,44 @@
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    // Burger menu: toggle .nav-open on body to show/hide everything
-    function toggleMenu() {
-      document.body.classList.toggle('nav-open');
-      burger.classList.toggle('clicked');
+    // Set nav styles directly — bypasses all CSS cascade issues
+    var NAV_STYLES = {
+      display: 'block',
+      position: 'fixed',
+      top: '0',
+      left: '0',
+      width: '100%',
+      height: '100%',
+      background: '#202020',
+      zIndex: '9000',
+      overflowY: 'auto',
+      padding: '100px 50px 50px',
+      boxSizing: 'border-box'
+    };
+
+    // Hide nav on load
+    nav.style.display = 'none';
+
+    var menuOpen = false;
+
+    function openMenu() {
+      Object.assign(nav.style, NAV_STYLES);
+      document.body.classList.add('nav-open');
+      burger.classList.add('clicked');
+      menuOpen = true;
     }
 
-    if (burger) burger.addEventListener('click', toggleMenu);
-    if (overlay) overlay.addEventListener('click', toggleMenu);
+    function closeMenu() {
+      nav.style.display = 'none';
+      document.body.classList.remove('nav-open');
+      burger.classList.remove('clicked');
+      menuOpen = false;
+    }
+
+    if (burger) burger.addEventListener('click', function() {
+      menuOpen ? closeMenu() : openMenu();
+    });
+    if (overlay) overlay.addEventListener('click', closeMenu);
   });
 </script>
 
