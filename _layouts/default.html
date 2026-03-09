@@ -17,6 +17,34 @@
   <!-- Theme CSS -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
+  <!-- Burger nav panel styles (missing from extracted theme CSS) -->
+  <style>
+    .burger-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #202020;
+      z-index: 99999;
+      overflow-y: auto;
+    }
+    .burger-nav ul.main li a,
+    .burger-nav ul.sub li a {
+      color: #fff;
+      font-size: 2rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+    .burger-nav ul.main li a:hover,
+    .burger-nav ul.sub li a:hover { color: #ff214f; }
+    .burger-nav ul { list-style: none; padding: 0; margin: 0; }
+    .overlay { z-index: 99998; }
+  </style>
+
   <!-- Lordicon -->
   <script src="https://cdn.lordicon.com/pzdvqjsp.js"></script>
 </head>
