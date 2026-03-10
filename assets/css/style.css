@@ -4063,6 +4063,13 @@ nav {
 .footer-hr {
   border: 1px solid #ffffff25; }
 
+.footer-legal {
+  color: #ffffffaa;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 24px 0;
+  margin: 0; }
+
 /* END FOOTER*/
 /* END IMPORT FOOTER CSS */
 /* RESPONSIVE CSS */
