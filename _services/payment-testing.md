@@ -1,5 +1,6 @@
 ---
 title: Payment Testing
+order: 2
 slug: payment-testing
 hero_image: payment_test.jpg
 summary: Our agents can execute live payments including bulk payments on business accounts to test your Open Banking Payments product.

@@ -17,7 +17,8 @@ title: Services
   <div class="main-page">
     <div class="main-spacing">
       <div class="col-4">
-        {% for service in site.services %}
+        {% assign sorted_services = site.services | sort: "order" %}
+        {% for service in sorted_services %}
         <div class="flex-wrap-bottom-div">
           <a class="m-0" href="{{ service.url }}">
             <img src="/assets/images/{{ service.hero_image }}"

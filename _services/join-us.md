@@ -1,5 +1,6 @@
 ---
 title: Join Us
+order: 8
 slug: join-us
 hero_image: austin-kehmeier-lyiKExA4zQA-unsplash.jpg
 summary: Join us as an Agent and earn a secondary income for very little effort or commitment.
