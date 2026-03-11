@@ -45,9 +45,15 @@ jobs:
           PATCH=$(echo $VERSION | cut -d. -f3)
 
           # Determine bump type from commits since last tag
-          # feat → minor bump, fix/docs/chore/test/ci/style/refactor → patch bump
+          # feat! / fix! (breaking change) → major bump
+          # feat → minor bump
+          # fix/docs/chore/test/ci/style/refactor → patch bump
           COMMITS=$(git log ${LATEST}..HEAD --pretty=format:"%s" 2>/dev/null || git log --pretty=format:"%s")
-          if echo "$COMMITS" | grep -qE "^feat\("; then
+          if echo "$COMMITS" | grep -qE "^(feat|fix)!\("; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif echo "$COMMITS" | grep -qE "^feat\("; then
             MINOR=$((MINOR + 1))
             PATCH=0
           else
