@@ -2,10 +2,12 @@
 #
 # commit-msg hook: enforces conventional commit format
 #
-# Required format: TYPE(TICKET): short description
+# Required format: TYPE[!](TICKET): short description
 #   TYPE   : feat | fix | docs | test | chore | ci | style | refactor
+#   !      : optional breaking change marker (triggers major version bump)
 #   TICKET : CWPD-NNN (Jira ticket reference)
 #   Example: feat(CWPD-12): add YouTube embed to video page layout
+#   Example: feat!(CWPD-1): release v1.0.0 — major milestone
 #
 # To install: git config core.hooksPath .githooks
 
@@ -17,13 +19,13 @@ if echo "$COMMIT_MSG" | grep -qE "^(Merge |fixup! |squash! )"; then
   exit 0
 fi
 
-PATTERN="^(feat|fix|docs|test|chore|ci|style|refactor)\(CWPD-[0-9]+\): .{1,100}"
+PATTERN="^(feat|fix|docs|test|chore|ci|style|refactor)!?\(CWPD-[0-9]+\): .{1,100}"
 
 if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
   echo ""
   echo "❌  Commit rejected: message does not follow the required format."
   echo ""
-  echo "    Required: TYPE(CWPD-NNN): short description"
+  echo "    Required: TYPE[!](CWPD-NNN): short description  (! = breaking change / major bump)"
   echo ""
   echo "    Valid types: feat | fix | docs | test | chore | ci | style | refactor"
   echo ""
