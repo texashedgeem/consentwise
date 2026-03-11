@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# commit-msg hook: enforces conventional commit format
+#
+# Required format: TYPE(TICKET): short description
+#   TYPE   : feat | fix | docs | test | chore | ci | style | refactor
+#   TICKET : CWPD-NNN (Jira ticket reference)
+#   Example: feat(CWPD-12): add YouTube embed to video page layout
+#
+# To install: git config core.hooksPath .githooks
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Allow merge commits and fixup commits
+if echo "$COMMIT_MSG" | grep -qE "^(Merge |fixup! |squash! )"; then
+  exit 0
+fi
+
+PATTERN="^(feat|fix|docs|test|chore|ci|style|refactor)\(CWPD-[0-9]+\): .{1,100}"
+
+if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
+  echo ""
+  echo "❌  Commit rejected: message does not follow the required format."
+  echo ""
+  echo "    Required: TYPE(CWPD-NNN): short description"
+  echo ""
+  echo "    Valid types: feat | fix | docs | test | chore | ci | style | refactor"
+  echo ""
+  echo "    Examples:"
+  echo "      feat(CWPD-12): add YouTube embed to video page layout"
+  echo "      fix(CWPD-11): correct tile hover colour on mobile"
+  echo "      docs(CWPD-18): add branching strategy to CONTRIBUTING.md"
+  echo ""
+  echo "    Your message was:"
+  echo "      $COMMIT_MSG"
+  echo ""
+  exit 1
+fi
+
+exit 0
