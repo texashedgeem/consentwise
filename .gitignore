@@ -4,3 +4,7 @@ _site/
 .jekyll-metadata
 Gemfile.lock
 vendor/
+node_modules/
+tests/reports/
+playwright-report/
+test-results/
