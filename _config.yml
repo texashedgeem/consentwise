@@ -8,6 +8,9 @@ collections:
   services:
     output: true
     permalink: /:name/
+  videos:
+    output: true
+    permalink: /videos/:name/
 
 defaults:
   - scope:
@@ -15,6 +18,11 @@ defaults:
       type: services
     values:
       layout: service
+  - scope:
+      path: ""
+      type: videos
+    values:
+      layout: video
 
 # Exclude from build
 exclude:
