@@ -4370,13 +4370,25 @@ h6.wp-block-heading {
   background-color: #e8e8e8;
   border-radius: 5px; }
 
-.video-tile-grid { margin-top: 40px; }
+.video-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px; }
+
+@media (max-width: 900px) {
+  .video-tile-grid {
+    grid-template-columns: repeat(2, 1fr); } }
+
+@media (max-width: 500px) {
+  .video-tile-grid {
+    grid-template-columns: 1fr; } }
 
 .video-tile-grid .projects-img {
   aspect-ratio: 16 / 9;
   object-fit: cover; }
 
-.video-tile-grid h4 {
+.video-tile-grid h4 {  display: -webkit-box;  -webkit-line-clamp: 2;  -webkit-box-orient: vertical;  overflow: hidden;
   margin-top: 12px;
   margin-bottom: 6px; }
 

@@ -16,7 +16,7 @@ Produce a video of your Open Banking journey that you can use for marketing, tra
 ## Open Banking Video Library
 
 {% assign sorted_videos = site.videos | sort: "order" %}
-<div class="col-4 video-tile-grid">
+<div class="video-tile-grid">
   {% for video in sorted_videos %}
   <div class="flex-wrap-bottom-div">
     {% if video.youtube_id != "TBD" %}
