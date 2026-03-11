@@ -1,0 +1,135 @@
+name: Create Release on Push to Main
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Generate Release Notes and Tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history needed to compute changelog
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          # Fetch all tags
+          git fetch --tags
+
+          # Get the latest semver tag, default to v0.0.0 if none exists
+          LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          if [ -z "$LATEST_TAG" ]; then
+            LATEST_TAG="v0.0.0"
+            echo "No previous tag found — starting from v0.0.0"
+          fi
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "Latest tag: $LATEST_TAG"
+
+      - name: Compute next version
+        id: next_version
+        run: |
+          LATEST="${{ steps.get_tag.outputs.latest_tag }}"
+          # Strip the leading 'v' and split into parts
+          VERSION="${LATEST#v}"
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          MINOR=$(echo $VERSION | cut -d. -f2)
+          PATCH=$(echo $VERSION | cut -d. -f3)
+
+          # Determine bump type from commits since last tag
+          # feat → minor bump, fix/docs/chore/test/ci/style/refactor → patch bump
+          COMMITS=$(git log ${LATEST}..HEAD --pretty=format:"%s" 2>/dev/null || git log --pretty=format:"%s")
+          if echo "$COMMITS" | grep -qE "^feat\("; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEW_TAG="v${MAJOR}.${MINOR}.${PATCH}"
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          echo "Next version: $NEW_TAG"
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          LATEST="${{ steps.get_tag.outputs.latest_tag }}"
+          NEW_TAG="${{ steps.next_version.outputs.new_tag }}"
+          JIRA_BASE="https://open-banking.atlassian.net/browse"
+
+          # Get commits since last tag (or all commits if no previous tag)
+          if git rev-parse "$LATEST" >/dev/null 2>&1; then
+            RAW_COMMITS=$(git log ${LATEST}..HEAD --pretty=format:"- %s (%h)" --no-merges)
+          else
+            RAW_COMMITS=$(git log --pretty=format:"- %s (%h)" --no-merges | head -50)
+          fi
+
+          if [ -z "$RAW_COMMITS" ]; then
+            RAW_COMMITS="- No new commits since last release"
+          fi
+
+          # Replace CWPD-NNN references with Jira hyperlinks (markdown)
+          LINKED_COMMITS=$(echo "$RAW_COMMITS" | \
+            sed -E "s|(CWPD-[0-9]+)|[\1](${JIRA_BASE}/\1)|g")
+
+          # Categorise commits by type
+          FEAT_COMMITS=$(echo "$LINKED_COMMITS" | grep "^- feat(" || true)
+          FIX_COMMITS=$(echo "$LINKED_COMMITS" | grep "^- fix(" || true)
+          DOCS_COMMITS=$(echo "$LINKED_COMMITS" | grep "^- docs(" || true)
+          TEST_COMMITS=$(echo "$LINKED_COMMITS" | grep "^- test(" || true)
+          CI_COMMITS=$(echo "$LINKED_COMMITS" | grep -E "^- (ci|chore)(" || true)
+          OTHER_COMMITS=$(echo "$LINKED_COMMITS" | grep -vE "^- (feat|fix|docs|test|ci|chore)\(" || true)
+
+          # Build release notes
+          NOTES=""
+
+          if [ -n "$FEAT_COMMITS" ]; then
+            NOTES="${NOTES}## New Features\n${FEAT_COMMITS}\n\n"
+          fi
+          if [ -n "$FIX_COMMITS" ]; then
+            NOTES="${NOTES}## Bug Fixes\n${FIX_COMMITS}\n\n"
+          fi
+          if [ -n "$DOCS_COMMITS" ]; then
+            NOTES="${NOTES}## Documentation\n${DOCS_COMMITS}\n\n"
+          fi
+          if [ -n "$TEST_COMMITS" ]; then
+            NOTES="${NOTES}## Tests\n${TEST_COMMITS}\n\n"
+          fi
+          if [ -n "$CI_COMMITS" ]; then
+            NOTES="${NOTES}## CI / Chore\n${CI_COMMITS}\n\n"
+          fi
+          if [ -n "$OTHER_COMMITS" ]; then
+            NOTES="${NOTES}## Other Changes\n${OTHER_COMMITS}\n\n"
+          fi
+
+          NOTES="${NOTES}---\n*Release ${NEW_TAG} — auto-generated from commit history. Each CWPD ticket links to the corresponding Jira story.*"
+
+          # Write to file (avoids shell escaping issues with multiline)
+          printf "%b" "$NOTES" > /tmp/release_notes.md
+          cat /tmp/release_notes.md
+
+      - name: Create tag and GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NEW_TAG="${{ steps.next_version.outputs.new_tag }}"
+
+          # Create and push the tag
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$NEW_TAG" -m "Release $NEW_TAG"
+          git push origin "$NEW_TAG"
+
+          # Create the GitHub Release
+          gh release create "$NEW_TAG" \
+            --title "Release $NEW_TAG" \
+            --notes-file /tmp/release_notes.md \
+            --latest
