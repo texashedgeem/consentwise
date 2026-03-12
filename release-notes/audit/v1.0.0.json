@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-03-12T18:20:35.258180+00:00",
+  "generated_at": "2026-03-12T21:19:35.157108+00:00",
   "generator": "scripts/generate_release_notes.py",
-  "generator_sha": "f6831882614709923e75b0253a587fa236fd0f0d",
+  "generator_sha": "75359d09b6c20193e325d5d2bf345560cb493042",
   "release": {
     "version": "1.0.0",
     "git_tag": "v1.0.0",
@@ -1621,6 +1621,24 @@
       "expected_parent_type": "Initiative",
       "actual_parent_key": "",
       "actual_parent_type": ""
+    }
+  ],
+  "open_branches": [
+    {
+      "branch": "feature/CWPD-1-v1-release",
+      "remote": "origin/feature/CWPD-1-v1-release",
+      "sha": "75359d0",
+      "subject": "ci(CWPD-35): upgrade GitHub Actions to Node.js 24 compatible versions",
+      "date": "2026-03-12",
+      "author": "Simon Hewins"
+    },
+    {
+      "branch": "feature/CWPD-27-responsive-video-tiles",
+      "remote": "origin/feature/CWPD-27-responsive-video-tiles",
+      "sha": "ffd0055",
+      "subject": "feat!(CWPD-1): release v1.0.0 \u2014 video gallery with full SDLC pipeline",
+      "date": "2026-03-11",
+      "author": "Simon Hewins"
     }
   ]
 }

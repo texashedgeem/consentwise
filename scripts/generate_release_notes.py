@@ -76,6 +76,31 @@ def get_initial_commit():
     return run_git("rev-list", "--max-parents=0", "HEAD")
 
 
+def get_open_branches(main_branch="main"):
+    """Return list of remote branches not yet merged into main."""
+    raw = run_git("branch", "-r", "--no-merged", f"origin/{main_branch}")
+    branches = []
+    for line in raw.splitlines():
+        branch = line.strip()
+        if not branch or "HEAD" in branch or branch == f"origin/{main_branch}":
+            continue
+        # Get the latest commit info for the branch
+        short_name = branch.removeprefix("origin/")
+        last_commit = run_git("log", "-1", "--format=%h|%s|%ai|%an", branch)
+        if last_commit:
+            parts = last_commit.split("|", 3)
+            sha, subject, date, author = parts if len(parts) == 4 else (last_commit, "", "", "")
+            branches.append({
+                "branch": short_name,
+                "remote": branch,
+                "sha": sha,
+                "subject": subject,
+                "date": date[:10],
+                "author": author,
+            })
+    return branches
+
+
 def get_previous_tag(tag):
     """Return the tag immediately before the given tag, or None."""
     out = run_git("describe", "--tags", "--abbrev=0", f"{tag}^")
@@ -442,7 +467,7 @@ def group_traced_by_type(traced):
 
 
 def generate_markdown(version, from_ref, to_ref, traced, jira_only, git_only, untracked,
-                       commits, score, generated_at, orphans=None):
+                       commits, score, generated_at, orphans=None, open_branches=None):
     lines = []
 
     lines.append(f"# Release Notes — v{version}")
@@ -463,6 +488,7 @@ def generate_markdown(version, from_ref, to_ref, traced, jira_only, git_only, un
     lines.append(f"| ⚠️  Git only (no Jira fixVersion) | {len(git_only)} tickets |")
     lines.append(f"| 🔴 Untracked commits (no ticket) | {len(untracked)} commits |")
     lines.append(f"| 🔗 Orphan tickets (missing parent) | {len(orphans or [])} tickets |")
+    lines.append(f"| 🌿 Open branches (not merged) | {len(open_branches or [])} branches |")
     lines.append(f"| **Total commits** | **{total_commits}** (excl. merges) |")
     lines.append("")
 
@@ -558,6 +584,19 @@ def generate_markdown(version, from_ref, to_ref, traced, jira_only, git_only, un
             )
         lines.append("")
 
+    # --- Open branches ---
+    if open_branches:
+        lines.append("## 🌿 Open Branches (Not Merged to Main)")
+        lines.append("")
+        lines.append("> These branches exist on the remote but have not been merged into main.")
+        lines.append("> Review and merge or delete to keep the repository clean.")
+        lines.append("")
+        lines.append("| Branch | Last Commit | Date | Author |")
+        lines.append("|---|---|---|---|")
+        for b in open_branches:
+            lines.append(f"| `{b['branch']}` | `{b['sha']}` {b['subject'][:60]} | {b['date']} | {b['author']} |")
+        lines.append("")
+
     # --- All commits log ---
     lines.append("## Full Commit Log")
     lines.append("")
@@ -580,7 +619,7 @@ def generate_markdown(version, from_ref, to_ref, traced, jira_only, git_only, un
 
 def generate_audit_log(version, from_ref, to_ref, traced, jira_only, git_only, untracked,
                         commits, score, generated_at, jira_url, jira_project, script_sha,
-                        jira_jql_used=None, orphans=None):
+                        jira_jql_used=None, orphans=None, open_branches=None):
 
     def jira_summary(issue):
         if not issue:
@@ -680,6 +719,7 @@ def generate_audit_log(version, from_ref, to_ref, traced, jira_only, git_only, u
         },
         "all_commits": [commit_summary(c) for c in commits],
         "orphan_tickets": orphans or [],
+        "open_branches": open_branches or [],
     }
 
 
@@ -800,6 +840,10 @@ def main():
     print(f"[release-notes]   UNTRACKED:  {len(untracked)} commits", file=sys.stderr)
     print(f"[release-notes]   ORPHANS:    {len(orphans)} tickets (missing parent)", file=sys.stderr)
 
+    # Detect open branches
+    open_branches = get_open_branches()
+    print(f"[release-notes]   OPEN BRANCHES: {len(open_branches)} not merged to main", file=sys.stderr)
+
     # --- Generate timestamp and script SHA ---
     generated_at = datetime.now(timezone.utc).isoformat()
     script_sha = run_git("rev-parse", "HEAD")
@@ -807,12 +851,12 @@ def main():
     # --- Generate outputs ---
     md = generate_markdown(
         version, from_ref, to_ref, traced, jira_only, git_only, untracked,
-        commits, score, generated_at, orphans=orphans
+        commits, score, generated_at, orphans=orphans, open_branches=open_branches
     )
     audit = generate_audit_log(
         version, from_ref, to_ref, traced, jira_only, git_only, untracked,
         commits, score, generated_at, args.jira_url, args.jira_project, script_sha,
-        jira_jql_used=args.jira_jql, orphans=orphans
+        jira_jql_used=args.jira_jql, orphans=orphans, open_branches=open_branches
     )
     audit_json = json.dumps(audit, indent=2)
 
