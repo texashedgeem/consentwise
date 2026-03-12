@@ -4340,10 +4340,13 @@ h6.wp-block-heading {
 
 .video-hero {
   background-color: #202020;
-  background-image: none; }
+  background-image: none;
+  height: 200px;
+  padding-top: 75px;
+  box-sizing: border-box; }
 
 .video-hero h1 {
-  font-size: 3rem; }
+  font-size: 4rem; }
 
 .video-embed-section {
   padding: 60px 0 0; }
@@ -4393,7 +4396,8 @@ h6.wp-block-heading {
 
 .video-tile-grid h4 {  display: -webkit-box;  -webkit-line-clamp: 2;  -webkit-box-orient: vertical;  overflow: hidden;
   margin-top: 12px;
-  margin-bottom: 6px; }
+  margin-bottom: 6px;
+  font-size: 1.5rem; }
 
 .video-tile-grid .fs-14 {
   color: #555; }
