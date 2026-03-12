@@ -1,0 +1,1530 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-12T16:42:49.032735+00:00",
+  "generator": "scripts/generate_release_notes.py",
+  "generator_sha": "30514217b0516ba59b0b1ff0afb4c6cc0426893c",
+  "release": {
+    "version": "1.0.0",
+    "git_tag": "v1.0.0",
+    "git_range": {
+      "from_ref": "initial_commit",
+      "to_ref": "v1.0.0"
+    }
+  },
+  "data_sources": {
+    "jira": {
+      "url": "https://open-banking.atlassian.net",
+      "project": "CWPD",
+      "query": "project = CWPD AND fixVersion = \"1.0.0\""
+    },
+    "git": {
+      "range": "initial..v1.0.0",
+      "total_commits": 45,
+      "merge_commits_excluded_from_analysis": 13
+    }
+  },
+  "traceability": {
+    "score_percent": 50.0,
+    "fully_traced_tickets": 13,
+    "jira_only_tickets": 7,
+    "git_only_tickets": 0,
+    "untracked_commits": 16,
+    "total_meaningful_commits": 32
+  },
+  "reconciliation": {
+    "traced": [
+      {
+        "key": "CWPD-1",
+        "jira": {
+          "key": "CWPD-1",
+          "summary": "Add Video Gallery to Promo Videos Page",
+          "status": "Backlog",
+          "issue_type": "Initiative",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "2e801e2ef3dc15882195efd9e877b8941a35125a",
+            "sha_short": "2e801e2e",
+            "author": "simonhewinszodia",
+            "email": "118838931+simonhewinszodia@users.noreply.github.com",
+            "date": "2026-03-11 14:48:14 +0000",
+            "subject": "Merge pull request #13 from texashedgeem/feature/CWPD-1-v1-release",
+            "ticket_refs": [
+              "CWPD-1"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "e183b18df60e8d57e31d46cf5ca78cad9173baf2",
+            "sha_short": "e183b18d",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 14:33:24 +0000",
+            "subject": "feat!(CWPD-1): release v1.0.0 \u2014 video gallery with full SDLC pipeline",
+            "ticket_refs": [
+              "CWPD-1"
+            ],
+            "is_merge": false,
+            "conv_type": "feat",
+            "conv_breaking": true
+          },
+          {
+            "sha": "ce4515aa6e906211e4d5c889ac440d2079905f05",
+            "sha_short": "ce4515aa",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 14:38:44 +0000",
+            "subject": "chore(CWPD-1): commit package-lock.json to fix CI npm cache lookup",
+            "ticket_refs": [
+              "CWPD-1"
+            ],
+            "is_merge": false,
+            "conv_type": "chore",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-10",
+        "jira": {
+          "key": "CWPD-10",
+          "summary": "Add video tile grid to /promo-videos/ page",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "046ad6ac06723c3253e0669fdebdf7ecde990535",
+            "sha_short": "046ad6ac",
+            "author": "simonhewinszodia",
+            "email": "118838931+simonhewinszodia@users.noreply.github.com",
+            "date": "2026-03-11 13:41:18 +0000",
+            "subject": "Merge pull request #10 from texashedgeem/feature/CWPD-10-video-tile-grid",
+            "ticket_refs": [
+              "CWPD-10"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "38f90ac9285ef69777ca75645daed3232c5ecde6",
+            "sha_short": "38f90ac9",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 13:36:57 +0000",
+            "subject": "feat(CWPD-10): add video tile grid to /promo-videos/ page",
+            "ticket_refs": [
+              "CWPD-10"
+            ],
+            "is_merge": false,
+            "conv_type": "feat",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-11",
+        "jira": {
+          "key": "CWPD-11",
+          "summary": "Style video tiles to match services page tile design",
+          "status": "In Progress",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "3dc9a6f0d763f30e7e03fa53aebe40585ab5eb41",
+            "sha_short": "3dc9a6f0",
+            "author": "simonhewinszodia",
+            "email": "118838931+simonhewinszodia@users.noreply.github.com",
+            "date": "2026-03-11 13:46:47 +0000",
+            "subject": "Merge pull request #11 from texashedgeem/feature/CWPD-11-video-tile-styles",
+            "ticket_refs": [
+              "CWPD-11"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "9e16cb337d5568f93299c3102d77cfbf00c53adf",
+            "sha_short": "9e16cb33",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 13:45:13 +0000",
+            "subject": "style(CWPD-11): style video tiles to match services page tile design",
+            "ticket_refs": [
+              "CWPD-11"
+            ],
+            "is_merge": false,
+            "conv_type": "style",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-14",
+        "jira": {
+          "key": "CWPD-14",
+          "summary": "Set up Playwright functional test framework",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "364bd25415ebe5850fda6aa74ed41dbc099b9512",
+            "sha_short": "364bd254",
+            "author": "Simon Hewins",
+            "email": "github@mantura.com",
+            "date": "2026-03-11 11:14:21 +0000",
+            "subject": "Merge pull request #2 from texashedgeem/feature/CWPD-14-playwright-framework",
+            "ticket_refs": [
+              "CWPD-14"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "1797aba0e904e1cc9a93384437746ae732d6b057",
+            "sha_short": "1797aba0",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 10:28:56 +0000",
+            "subject": "feat(CWPD-14): add Playwright functional test framework",
+            "ticket_refs": [
+              "CWPD-14"
+            ],
+            "is_merge": false,
+            "conv_type": "feat",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-15",
+        "jira": {
+          "key": "CWPD-15",
+          "summary": "Add pre-commit hook enforcing conventional commit message format",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "bbd6d5c57c5badcf5c133ce37addf35fdbb3d2af",
+            "sha_short": "bbd6d5c5",
+            "author": "Simon Hewins",
+            "email": "github@mantura.com",
+            "date": "2026-03-11 11:14:41 +0000",
+            "subject": "Merge pull request #1 from texashedgeem/feature/CWPD-15-pre-commit-hook",
+            "ticket_refs": [
+              "CWPD-15"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "63b3ed06776f196c7fe49ff94d520b16dfd3e2fb",
+            "sha_short": "63b3ed06",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 10:16:22 +0000",
+            "subject": "feat(CWPD-15): add pre-commit hook enforcing conventional commit format",
+            "ticket_refs": [
+              "CWPD-15"
+            ],
+            "is_merge": false,
+            "conv_type": "feat",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-16",
+        "jira": {
+          "key": "CWPD-16",
+          "summary": "Create GitHub Actions CI pipeline running Playwright on every PR",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "32b18aa542e0a98b2e7d0d110d2e4543bebb19cb",
+            "sha_short": "32b18aa5",
+            "author": "simonhewinszodia",
+            "email": "118838931+simonhewinszodia@users.noreply.github.com",
+            "date": "2026-03-11 12:21:17 +0000",
+            "subject": "Merge pull request #4 from texashedgeem/feature/CWPD-16-github-actions-ci",
+            "ticket_refs": [
+              "CWPD-16"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "87cff31a32a0b9a19b899eea6d574d116ed6eee3",
+            "sha_short": "87cff31a",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 11:40:28 +0000",
+            "subject": "ci(CWPD-16): add GitHub Actions CI pipeline running Playwright on every PR",
+            "ticket_refs": [
+              "CWPD-16"
+            ],
+            "is_merge": false,
+            "conv_type": "ci",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-17",
+        "jira": {
+          "key": "CWPD-17",
+          "summary": "Automate GitHub Release notes on push to main",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "d0bf5e9f658aea3e2850cbe42c56079388554aec",
+            "sha_short": "d0bf5e9f",
+            "author": "Simon Hewins",
+            "email": "github@mantura.com",
+            "date": "2026-03-11 11:13:55 +0000",
+            "subject": "Merge pull request #3 from texashedgeem/feature/CWPD-17-auto-release-notes",
+            "ticket_refs": [
+              "CWPD-17"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "81ff87afcabb8a668afebada16bce7395d96b80f",
+            "sha_short": "81ff87af",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 10:41:51 +0000",
+            "subject": "feat(CWPD-17): add automated GitHub Release notes on push to main",
+            "ticket_refs": [
+              "CWPD-17"
+            ],
+            "is_merge": false,
+            "conv_type": "feat",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-18",
+        "jira": {
+          "key": "CWPD-18",
+          "summary": "Write CONTRIBUTING.md covering branching, commits, and testing",
+          "status": "In Progress",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "ee68ca3dbf12d165e5b0fb8ac537dc736aa8a118",
+            "sha_short": "ee68ca3d",
+            "author": "simonhewinszodia",
+            "email": "118838931+simonhewinszodia@users.noreply.github.com",
+            "date": "2026-03-11 12:32:04 +0000",
+            "subject": "Merge pull request #5 from texashedgeem/feature/CWPD-18-contributing-md",
+            "ticket_refs": [
+              "CWPD-18"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "898a96fdec42c9e968c611ee91b5625a84c1178e",
+            "sha_short": "898a96fd",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 12:26:59 +0000",
+            "subject": "docs(CWPD-18): add CONTRIBUTING.md covering branching, commits, and testing",
+            "ticket_refs": [
+              "CWPD-18"
+            ],
+            "is_merge": false,
+            "conv_type": "docs",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-19",
+        "jira": {
+          "key": "CWPD-19",
+          "summary": "Write SDLC.md to ISO27001/SOC1/DORA audit standard",
+          "status": "In Progress",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "159eeca86e5ea4dca65bea8bf75b8a0871336769",
+            "sha_short": "159eeca8",
+            "author": "simonhewinszodia",
+            "email": "118838931+simonhewinszodia@users.noreply.github.com",
+            "date": "2026-03-11 12:51:27 +0000",
+            "subject": "Merge pull request #6 from texashedgeem/feature/CWPD-19-sdlc-md",
+            "ticket_refs": [
+              "CWPD-19"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "af36d4f9857e619f9e3da1f7d75c22962b3a6c37",
+            "sha_short": "af36d4f9",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 12:40:52 +0000",
+            "subject": "docs(CWPD-19): add SDLC.md to ISO27001/SOC1/DORA audit standard",
+            "ticket_refs": [
+              "CWPD-19"
+            ],
+            "is_merge": false,
+            "conv_type": "docs",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-27",
+        "jira": {
+          "key": "CWPD-27",
+          "summary": "Make video tile grid responsive and cap tile titles to two lines",
+          "status": "Backlog",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "70584b3e32a820111b78f22ea947e276f3a67832",
+            "sha_short": "70584b3e",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 14:33:13 +0000",
+            "subject": "ci(CWPD-27): update commit-msg hook to allow ! breaking change marker",
+            "ticket_refs": [
+              "CWPD-27"
+            ],
+            "is_merge": false,
+            "conv_type": "ci",
+            "conv_breaking": false
+          },
+          {
+            "sha": "cd3af2ca65eda4cc0dc045ebe06872b00e890188",
+            "sha_short": "cd3af2ca",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 14:31:08 +0000",
+            "subject": "ci(CWPD-27): support major version bumps via feat!/fix! conventional commits",
+            "ticket_refs": [
+              "CWPD-27"
+            ],
+            "is_merge": false,
+            "conv_type": "ci",
+            "conv_breaking": false
+          },
+          {
+            "sha": "f2af2354d5744f732ff9767eb4e1e947a83fa662",
+            "sha_short": "f2af2354",
+            "author": "simonhewinszodia",
+            "email": "118838931+simonhewinszodia@users.noreply.github.com",
+            "date": "2026-03-11 14:22:33 +0000",
+            "subject": "Merge pull request #12 from texashedgeem/feature/CWPD-27-responsive-video-tiles",
+            "ticket_refs": [
+              "CWPD-27"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "e851977924a8fd9bb45947e22c3d65ea690a7fd8",
+            "sha_short": "e8519779",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 14:15:09 +0000",
+            "subject": "style(CWPD-27): make video tile grid responsive and cap titles to two lines",
+            "ticket_refs": [
+              "CWPD-27"
+            ],
+            "is_merge": false,
+            "conv_type": "style",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-7",
+        "jira": {
+          "key": "CWPD-7",
+          "summary": "Create _videos Jekyll collection and front matter schema",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "dc827d3c54d3d01ac8ce37cea431b1f23e8ef1ac",
+            "sha_short": "dc827d3c",
+            "author": "Simon Hewins",
+            "email": "github@mantura.com",
+            "date": "2026-03-11 13:09:50 +0000",
+            "subject": "Merge pull request #7 from texashedgeem/feature/CWPD-7-videos-collection",
+            "ticket_refs": [
+              "CWPD-7"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "34c1c67a8396abc53b173bf846d960209c74857b",
+            "sha_short": "34c1c67a",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 13:05:45 +0000",
+            "subject": "feat(CWPD-7): add _videos Jekyll collection with front matter schema",
+            "ticket_refs": [
+              "CWPD-7"
+            ],
+            "is_merge": false,
+            "conv_type": "feat",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-8",
+        "jira": {
+          "key": "CWPD-8",
+          "summary": "Create video page layout template",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "8ec0daedee6ca87fb4f663151025720cfcb402c7",
+            "sha_short": "8ec0daed",
+            "author": "Simon Hewins",
+            "email": "github@mantura.com",
+            "date": "2026-03-11 13:23:22 +0000",
+            "subject": "Merge pull request #8 from texashedgeem/feature/CWPD-8-video-page-layout",
+            "ticket_refs": [
+              "CWPD-8"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "9d4f123c77380108ae5015a60c55d6e647ffe465",
+            "sha_short": "9d4f123c",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 13:20:43 +0000",
+            "subject": "feat(CWPD-8): add video page layout template with embed and CTA",
+            "ticket_refs": [
+              "CWPD-8"
+            ],
+            "is_merge": false,
+            "conv_type": "feat",
+            "conv_breaking": false
+          }
+        ]
+      },
+      {
+        "key": "CWPD-9",
+        "jira": {
+          "key": "CWPD-9",
+          "summary": "Pre-populate _videos collection with UK Open Banking YouTube videos",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "commits": [
+          {
+            "sha": "13b79e0bc979e0549ca0d264824173f6babc4a5c",
+            "sha_short": "13b79e0b",
+            "author": "Simon Hewins",
+            "email": "github@mantura.com",
+            "date": "2026-03-11 13:31:20 +0000",
+            "subject": "Merge pull request #9 from texashedgeem/feature/CWPD-9-populate-videos",
+            "ticket_refs": [
+              "CWPD-9"
+            ],
+            "is_merge": true,
+            "conv_type": null,
+            "conv_breaking": false
+          },
+          {
+            "sha": "7f2d309dbab97cb6934a4676acfba19b233f40bb",
+            "sha_short": "7f2d309d",
+            "author": "Simon Hewins",
+            "email": "7031354+texashedgeem@users.noreply.github.com",
+            "date": "2026-03-11 13:28:30 +0000",
+            "subject": "feat(CWPD-9): pre-populate _videos collection with 8 Open Banking videos",
+            "ticket_refs": [
+              "CWPD-9"
+            ],
+            "is_merge": false,
+            "conv_type": "feat",
+            "conv_breaking": false
+          }
+        ]
+      }
+    ],
+    "jira_only": [
+      {
+        "key": "CWPD-12",
+        "jira": {
+          "key": "CWPD-12",
+          "summary": "Build individual video page with full-width YouTube embed",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      },
+      {
+        "key": "CWPD-13",
+        "jira": {
+          "key": "CWPD-13",
+          "summary": "Add CTA footer section to video pages",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      },
+      {
+        "key": "CWPD-2",
+        "jira": {
+          "key": "CWPD-2",
+          "summary": "Video Collection Jekyll Data Structure",
+          "status": "Backlog",
+          "issue_type": "Epic",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      },
+      {
+        "key": "CWPD-3",
+        "jira": {
+          "key": "CWPD-3",
+          "summary": "Video Tiles on Promo Videos Page",
+          "status": "Backlog",
+          "issue_type": "Epic",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      },
+      {
+        "key": "CWPD-4",
+        "jira": {
+          "key": "CWPD-4",
+          "summary": "Individual Video Pages",
+          "status": "Backlog",
+          "issue_type": "Epic",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      },
+      {
+        "key": "CWPD-5",
+        "jira": {
+          "key": "CWPD-5",
+          "summary": "SDLC Foundation - Testing and CI/CD",
+          "status": "Done",
+          "issue_type": "Epic",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      },
+      {
+        "key": "CWPD-6",
+        "jira": {
+          "key": "CWPD-6",
+          "summary": "SDLC Documentation - Audit Ready",
+          "status": "Backlog",
+          "issue_type": "Epic",
+          "fix_versions": [
+            "1.0.0"
+          ]
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      }
+    ],
+    "git_only": [],
+    "untracked": [
+      {
+        "sha": "68005005fd8cce120f8d6365ed3a8764f4b5e83d",
+        "sha_short": "68005005",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-10 23:13:55 +0000",
+        "subject": "OBLT-237: Reorder services page cards",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "e6d9c1bb93e9f2fda4abe8cb5b83feaf43f2b164",
+        "sha_short": "e6d9c1bb",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-10 22:51:36 +0000",
+        "subject": "OBLT-237: Update footer to single legal line",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "d9ee0040da9891b6c10fe9af48fe2f8ec39d1d15",
+        "sha_short": "d9ee0040",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-10 21:54:42 +0000",
+        "subject": "Merge footer into single legal line, remove logo/nav/RedKoi credit",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "24086d38e3dcdfe3b54e2779952b23e2ee7933d6",
+        "sha_short": "24086d38",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 22:49:08 +0000",
+        "subject": "Add session log directory and first change summary",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "be65894dd71a3d201a0ab4944c1264d6b70f641b",
+        "sha_short": "be65894d",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 22:35:05 +0000",
+        "subject": "Fix burger menu: add .show class and CSS transform override",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "13b7a7216a71859f1c7d85cc770ca5cc6f334f10",
+        "sha_short": "13b7a721",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 21:58:11 +0000",
+        "subject": "Fix burger nav: drive show/hide entirely via JS inline styles to bypass CSS cascade",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "d121ee5722b13783bbe2e5b9579d84c131c60ec0",
+        "sha_short": "d121ee57",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 21:53:53 +0000",
+        "subject": "Fix burger nav visibility: use !important to override theme CSS z-index and opacity conflicts",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "38f0dbd59732ab9c8696dcf076ae47eca316a372",
+        "sha_short": "38f0dbd5",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 21:49:23 +0000",
+        "subject": "Rewrite burger menu: single body.nav-open class controls all show/hide via CSS",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "4ad0e54e812a2373841affc187761ef49f83a005",
+        "sha_short": "4ad0e54e",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 21:44:48 +0000",
+        "subject": "Fix burger menu: move nav and overlay outside header to fix stacking context",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "b2e7e1978563efd946f7038a7030b1e58da44537",
+        "sha_short": "b2e7e197",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 20:18:31 +0000",
+        "subject": "Fix burger nav: add missing fullscreen panel CSS and correct z-index layering",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "c52e746a42f968d601ae02a21d651170254e150b",
+        "sha_short": "c52e746a",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 19:39:11 +0000",
+        "subject": "Fix mobile burger menu: correct overlay class, hide nav on load, animate icon to X",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "722c3b46f9a216e455d6bf2dae82b1c1a776ed6c",
+        "sha_short": "722c3b46",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 18:58:38 +0000",
+        "subject": "Fix isHome detection: use Liquid if/else instead of json filter",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "054dc21ae567efaed1ce3cf22108d1a9012a6dd4",
+        "sha_short": "054dc21a",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 18:49:14 +0000",
+        "subject": "Fix header: add scroll-activated dark background, always-dark on non-home pages",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "0c1ba1d0350531604fbe980857a6a7cd53b20974",
+        "sha_short": "0c1ba1d0",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 18:36:37 +0000",
+        "subject": "Crop promo-videos and join-us images to 3:2 ratio to match other service cards",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "542caa4b7396b3cad9ae6c61edf4c59d69001b2e",
+        "sha_short": "542caa4b",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 18:29:55 +0000",
+        "subject": "Fix about-us 404: add permalink /about-us/",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      },
+      {
+        "sha": "9b673b37c806cc21ddc4d0709b15b05a4a0b8101",
+        "sha_short": "9b673b37",
+        "author": "Simon Hewins",
+        "email": "7031354+texashedgeem@users.noreply.github.com",
+        "date": "2026-03-09 17:56:43 +0000",
+        "subject": "Migrate consentwise.io WordPress site to Jekyll/GitHub Pages",
+        "ticket_refs": [],
+        "is_merge": false,
+        "conv_type": null,
+        "conv_breaking": false,
+        "note": "Commit has no ticket reference"
+      }
+    ]
+  },
+  "all_commits": [
+    {
+      "sha": "2e801e2ef3dc15882195efd9e877b8941a35125a",
+      "sha_short": "2e801e2e",
+      "author": "simonhewinszodia",
+      "email": "118838931+simonhewinszodia@users.noreply.github.com",
+      "date": "2026-03-11 14:48:14 +0000",
+      "subject": "Merge pull request #13 from texashedgeem/feature/CWPD-1-v1-release",
+      "ticket_refs": [
+        "CWPD-1"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "e183b18df60e8d57e31d46cf5ca78cad9173baf2",
+      "sha_short": "e183b18d",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 14:33:24 +0000",
+      "subject": "feat!(CWPD-1): release v1.0.0 \u2014 video gallery with full SDLC pipeline",
+      "ticket_refs": [
+        "CWPD-1"
+      ],
+      "is_merge": false,
+      "conv_type": "feat",
+      "conv_breaking": true
+    },
+    {
+      "sha": "70584b3e32a820111b78f22ea947e276f3a67832",
+      "sha_short": "70584b3e",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 14:33:13 +0000",
+      "subject": "ci(CWPD-27): update commit-msg hook to allow ! breaking change marker",
+      "ticket_refs": [
+        "CWPD-27"
+      ],
+      "is_merge": false,
+      "conv_type": "ci",
+      "conv_breaking": false
+    },
+    {
+      "sha": "cd3af2ca65eda4cc0dc045ebe06872b00e890188",
+      "sha_short": "cd3af2ca",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 14:31:08 +0000",
+      "subject": "ci(CWPD-27): support major version bumps via feat!/fix! conventional commits",
+      "ticket_refs": [
+        "CWPD-27"
+      ],
+      "is_merge": false,
+      "conv_type": "ci",
+      "conv_breaking": false
+    },
+    {
+      "sha": "ce4515aa6e906211e4d5c889ac440d2079905f05",
+      "sha_short": "ce4515aa",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 14:38:44 +0000",
+      "subject": "chore(CWPD-1): commit package-lock.json to fix CI npm cache lookup",
+      "ticket_refs": [
+        "CWPD-1"
+      ],
+      "is_merge": false,
+      "conv_type": "chore",
+      "conv_breaking": false
+    },
+    {
+      "sha": "f2af2354d5744f732ff9767eb4e1e947a83fa662",
+      "sha_short": "f2af2354",
+      "author": "simonhewinszodia",
+      "email": "118838931+simonhewinszodia@users.noreply.github.com",
+      "date": "2026-03-11 14:22:33 +0000",
+      "subject": "Merge pull request #12 from texashedgeem/feature/CWPD-27-responsive-video-tiles",
+      "ticket_refs": [
+        "CWPD-27"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "e851977924a8fd9bb45947e22c3d65ea690a7fd8",
+      "sha_short": "e8519779",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 14:15:09 +0000",
+      "subject": "style(CWPD-27): make video tile grid responsive and cap titles to two lines",
+      "ticket_refs": [
+        "CWPD-27"
+      ],
+      "is_merge": false,
+      "conv_type": "style",
+      "conv_breaking": false
+    },
+    {
+      "sha": "3dc9a6f0d763f30e7e03fa53aebe40585ab5eb41",
+      "sha_short": "3dc9a6f0",
+      "author": "simonhewinszodia",
+      "email": "118838931+simonhewinszodia@users.noreply.github.com",
+      "date": "2026-03-11 13:46:47 +0000",
+      "subject": "Merge pull request #11 from texashedgeem/feature/CWPD-11-video-tile-styles",
+      "ticket_refs": [
+        "CWPD-11"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "9e16cb337d5568f93299c3102d77cfbf00c53adf",
+      "sha_short": "9e16cb33",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 13:45:13 +0000",
+      "subject": "style(CWPD-11): style video tiles to match services page tile design",
+      "ticket_refs": [
+        "CWPD-11"
+      ],
+      "is_merge": false,
+      "conv_type": "style",
+      "conv_breaking": false
+    },
+    {
+      "sha": "046ad6ac06723c3253e0669fdebdf7ecde990535",
+      "sha_short": "046ad6ac",
+      "author": "simonhewinszodia",
+      "email": "118838931+simonhewinszodia@users.noreply.github.com",
+      "date": "2026-03-11 13:41:18 +0000",
+      "subject": "Merge pull request #10 from texashedgeem/feature/CWPD-10-video-tile-grid",
+      "ticket_refs": [
+        "CWPD-10"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "38f90ac9285ef69777ca75645daed3232c5ecde6",
+      "sha_short": "38f90ac9",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 13:36:57 +0000",
+      "subject": "feat(CWPD-10): add video tile grid to /promo-videos/ page",
+      "ticket_refs": [
+        "CWPD-10"
+      ],
+      "is_merge": false,
+      "conv_type": "feat",
+      "conv_breaking": false
+    },
+    {
+      "sha": "13b79e0bc979e0549ca0d264824173f6babc4a5c",
+      "sha_short": "13b79e0b",
+      "author": "Simon Hewins",
+      "email": "github@mantura.com",
+      "date": "2026-03-11 13:31:20 +0000",
+      "subject": "Merge pull request #9 from texashedgeem/feature/CWPD-9-populate-videos",
+      "ticket_refs": [
+        "CWPD-9"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "7f2d309dbab97cb6934a4676acfba19b233f40bb",
+      "sha_short": "7f2d309d",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 13:28:30 +0000",
+      "subject": "feat(CWPD-9): pre-populate _videos collection with 8 Open Banking videos",
+      "ticket_refs": [
+        "CWPD-9"
+      ],
+      "is_merge": false,
+      "conv_type": "feat",
+      "conv_breaking": false
+    },
+    {
+      "sha": "8ec0daedee6ca87fb4f663151025720cfcb402c7",
+      "sha_short": "8ec0daed",
+      "author": "Simon Hewins",
+      "email": "github@mantura.com",
+      "date": "2026-03-11 13:23:22 +0000",
+      "subject": "Merge pull request #8 from texashedgeem/feature/CWPD-8-video-page-layout",
+      "ticket_refs": [
+        "CWPD-8"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "9d4f123c77380108ae5015a60c55d6e647ffe465",
+      "sha_short": "9d4f123c",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 13:20:43 +0000",
+      "subject": "feat(CWPD-8): add video page layout template with embed and CTA",
+      "ticket_refs": [
+        "CWPD-8"
+      ],
+      "is_merge": false,
+      "conv_type": "feat",
+      "conv_breaking": false
+    },
+    {
+      "sha": "dc827d3c54d3d01ac8ce37cea431b1f23e8ef1ac",
+      "sha_short": "dc827d3c",
+      "author": "Simon Hewins",
+      "email": "github@mantura.com",
+      "date": "2026-03-11 13:09:50 +0000",
+      "subject": "Merge pull request #7 from texashedgeem/feature/CWPD-7-videos-collection",
+      "ticket_refs": [
+        "CWPD-7"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "34c1c67a8396abc53b173bf846d960209c74857b",
+      "sha_short": "34c1c67a",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 13:05:45 +0000",
+      "subject": "feat(CWPD-7): add _videos Jekyll collection with front matter schema",
+      "ticket_refs": [
+        "CWPD-7"
+      ],
+      "is_merge": false,
+      "conv_type": "feat",
+      "conv_breaking": false
+    },
+    {
+      "sha": "159eeca86e5ea4dca65bea8bf75b8a0871336769",
+      "sha_short": "159eeca8",
+      "author": "simonhewinszodia",
+      "email": "118838931+simonhewinszodia@users.noreply.github.com",
+      "date": "2026-03-11 12:51:27 +0000",
+      "subject": "Merge pull request #6 from texashedgeem/feature/CWPD-19-sdlc-md",
+      "ticket_refs": [
+        "CWPD-19"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "af36d4f9857e619f9e3da1f7d75c22962b3a6c37",
+      "sha_short": "af36d4f9",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 12:40:52 +0000",
+      "subject": "docs(CWPD-19): add SDLC.md to ISO27001/SOC1/DORA audit standard",
+      "ticket_refs": [
+        "CWPD-19"
+      ],
+      "is_merge": false,
+      "conv_type": "docs",
+      "conv_breaking": false
+    },
+    {
+      "sha": "ee68ca3dbf12d165e5b0fb8ac537dc736aa8a118",
+      "sha_short": "ee68ca3d",
+      "author": "simonhewinszodia",
+      "email": "118838931+simonhewinszodia@users.noreply.github.com",
+      "date": "2026-03-11 12:32:04 +0000",
+      "subject": "Merge pull request #5 from texashedgeem/feature/CWPD-18-contributing-md",
+      "ticket_refs": [
+        "CWPD-18"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "898a96fdec42c9e968c611ee91b5625a84c1178e",
+      "sha_short": "898a96fd",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 12:26:59 +0000",
+      "subject": "docs(CWPD-18): add CONTRIBUTING.md covering branching, commits, and testing",
+      "ticket_refs": [
+        "CWPD-18"
+      ],
+      "is_merge": false,
+      "conv_type": "docs",
+      "conv_breaking": false
+    },
+    {
+      "sha": "32b18aa542e0a98b2e7d0d110d2e4543bebb19cb",
+      "sha_short": "32b18aa5",
+      "author": "simonhewinszodia",
+      "email": "118838931+simonhewinszodia@users.noreply.github.com",
+      "date": "2026-03-11 12:21:17 +0000",
+      "subject": "Merge pull request #4 from texashedgeem/feature/CWPD-16-github-actions-ci",
+      "ticket_refs": [
+        "CWPD-16"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "87cff31a32a0b9a19b899eea6d574d116ed6eee3",
+      "sha_short": "87cff31a",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 11:40:28 +0000",
+      "subject": "ci(CWPD-16): add GitHub Actions CI pipeline running Playwright on every PR",
+      "ticket_refs": [
+        "CWPD-16"
+      ],
+      "is_merge": false,
+      "conv_type": "ci",
+      "conv_breaking": false
+    },
+    {
+      "sha": "bbd6d5c57c5badcf5c133ce37addf35fdbb3d2af",
+      "sha_short": "bbd6d5c5",
+      "author": "Simon Hewins",
+      "email": "github@mantura.com",
+      "date": "2026-03-11 11:14:41 +0000",
+      "subject": "Merge pull request #1 from texashedgeem/feature/CWPD-15-pre-commit-hook",
+      "ticket_refs": [
+        "CWPD-15"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "364bd25415ebe5850fda6aa74ed41dbc099b9512",
+      "sha_short": "364bd254",
+      "author": "Simon Hewins",
+      "email": "github@mantura.com",
+      "date": "2026-03-11 11:14:21 +0000",
+      "subject": "Merge pull request #2 from texashedgeem/feature/CWPD-14-playwright-framework",
+      "ticket_refs": [
+        "CWPD-14"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "d0bf5e9f658aea3e2850cbe42c56079388554aec",
+      "sha_short": "d0bf5e9f",
+      "author": "Simon Hewins",
+      "email": "github@mantura.com",
+      "date": "2026-03-11 11:13:55 +0000",
+      "subject": "Merge pull request #3 from texashedgeem/feature/CWPD-17-auto-release-notes",
+      "ticket_refs": [
+        "CWPD-17"
+      ],
+      "is_merge": true,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "81ff87afcabb8a668afebada16bce7395d96b80f",
+      "sha_short": "81ff87af",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 10:41:51 +0000",
+      "subject": "feat(CWPD-17): add automated GitHub Release notes on push to main",
+      "ticket_refs": [
+        "CWPD-17"
+      ],
+      "is_merge": false,
+      "conv_type": "feat",
+      "conv_breaking": false
+    },
+    {
+      "sha": "1797aba0e904e1cc9a93384437746ae732d6b057",
+      "sha_short": "1797aba0",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 10:28:56 +0000",
+      "subject": "feat(CWPD-14): add Playwright functional test framework",
+      "ticket_refs": [
+        "CWPD-14"
+      ],
+      "is_merge": false,
+      "conv_type": "feat",
+      "conv_breaking": false
+    },
+    {
+      "sha": "63b3ed06776f196c7fe49ff94d520b16dfd3e2fb",
+      "sha_short": "63b3ed06",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-11 10:16:22 +0000",
+      "subject": "feat(CWPD-15): add pre-commit hook enforcing conventional commit format",
+      "ticket_refs": [
+        "CWPD-15"
+      ],
+      "is_merge": false,
+      "conv_type": "feat",
+      "conv_breaking": false
+    },
+    {
+      "sha": "68005005fd8cce120f8d6365ed3a8764f4b5e83d",
+      "sha_short": "68005005",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-10 23:13:55 +0000",
+      "subject": "OBLT-237: Reorder services page cards",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "e6d9c1bb93e9f2fda4abe8cb5b83feaf43f2b164",
+      "sha_short": "e6d9c1bb",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-10 22:51:36 +0000",
+      "subject": "OBLT-237: Update footer to single legal line",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "d9ee0040da9891b6c10fe9af48fe2f8ec39d1d15",
+      "sha_short": "d9ee0040",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-10 21:54:42 +0000",
+      "subject": "Merge footer into single legal line, remove logo/nav/RedKoi credit",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "24086d38e3dcdfe3b54e2779952b23e2ee7933d6",
+      "sha_short": "24086d38",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 22:49:08 +0000",
+      "subject": "Add session log directory and first change summary",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "be65894dd71a3d201a0ab4944c1264d6b70f641b",
+      "sha_short": "be65894d",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 22:35:05 +0000",
+      "subject": "Fix burger menu: add .show class and CSS transform override",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "13b7a7216a71859f1c7d85cc770ca5cc6f334f10",
+      "sha_short": "13b7a721",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 21:58:11 +0000",
+      "subject": "Fix burger nav: drive show/hide entirely via JS inline styles to bypass CSS cascade",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "d121ee5722b13783bbe2e5b9579d84c131c60ec0",
+      "sha_short": "d121ee57",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 21:53:53 +0000",
+      "subject": "Fix burger nav visibility: use !important to override theme CSS z-index and opacity conflicts",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "38f0dbd59732ab9c8696dcf076ae47eca316a372",
+      "sha_short": "38f0dbd5",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 21:49:23 +0000",
+      "subject": "Rewrite burger menu: single body.nav-open class controls all show/hide via CSS",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "4ad0e54e812a2373841affc187761ef49f83a005",
+      "sha_short": "4ad0e54e",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 21:44:48 +0000",
+      "subject": "Fix burger menu: move nav and overlay outside header to fix stacking context",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "b2e7e1978563efd946f7038a7030b1e58da44537",
+      "sha_short": "b2e7e197",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 20:18:31 +0000",
+      "subject": "Fix burger nav: add missing fullscreen panel CSS and correct z-index layering",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "c52e746a42f968d601ae02a21d651170254e150b",
+      "sha_short": "c52e746a",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 19:39:11 +0000",
+      "subject": "Fix mobile burger menu: correct overlay class, hide nav on load, animate icon to X",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "722c3b46f9a216e455d6bf2dae82b1c1a776ed6c",
+      "sha_short": "722c3b46",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 18:58:38 +0000",
+      "subject": "Fix isHome detection: use Liquid if/else instead of json filter",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "054dc21ae567efaed1ce3cf22108d1a9012a6dd4",
+      "sha_short": "054dc21a",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 18:49:14 +0000",
+      "subject": "Fix header: add scroll-activated dark background, always-dark on non-home pages",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "0c1ba1d0350531604fbe980857a6a7cd53b20974",
+      "sha_short": "0c1ba1d0",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 18:36:37 +0000",
+      "subject": "Crop promo-videos and join-us images to 3:2 ratio to match other service cards",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "542caa4b7396b3cad9ae6c61edf4c59d69001b2e",
+      "sha_short": "542caa4b",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 18:29:55 +0000",
+      "subject": "Fix about-us 404: add permalink /about-us/",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    },
+    {
+      "sha": "9b673b37c806cc21ddc4d0709b15b05a4a0b8101",
+      "sha_short": "9b673b37",
+      "author": "Simon Hewins",
+      "email": "7031354+texashedgeem@users.noreply.github.com",
+      "date": "2026-03-09 17:56:43 +0000",
+      "subject": "Migrate consentwise.io WordPress site to Jekyll/GitHub Pages",
+      "ticket_refs": [],
+      "is_merge": false,
+      "conv_type": null,
+      "conv_breaking": false
+    }
+  ]
+}
