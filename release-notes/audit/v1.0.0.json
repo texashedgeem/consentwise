@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-03-12T16:42:49.032735+00:00",
+  "generated_at": "2026-03-12T18:20:35.258180+00:00",
   "generator": "scripts/generate_release_notes.py",
-  "generator_sha": "30514217b0516ba59b0b1ff0afb4c6cc0426893c",
+  "generator_sha": "f6831882614709923e75b0253a587fa236fd0f0d",
   "release": {
     "version": "1.0.0",
     "git_tag": "v1.0.0",
@@ -26,10 +26,11 @@
   "traceability": {
     "score_percent": 50.0,
     "fully_traced_tickets": 13,
-    "jira_only_tickets": 7,
+    "jira_only_tickets": 9,
     "git_only_tickets": 0,
     "untracked_commits": 16,
-    "total_meaningful_commits": 32
+    "total_meaningful_commits": 32,
+    "orphan_tickets": 5
   },
   "reconciliation": {
     "traced": [
@@ -38,11 +39,12 @@
         "jira": {
           "key": "CWPD-1",
           "summary": "Add Video Gallery to Promo Videos Page",
-          "status": "Backlog",
+          "status": "Done",
           "issue_type": "Initiative",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": ""
         },
         "commits": [
           {
@@ -98,7 +100,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-3"
         },
         "commits": [
           {
@@ -136,11 +139,12 @@
         "jira": {
           "key": "CWPD-11",
           "summary": "Style video tiles to match services page tile design",
-          "status": "In Progress",
+          "status": "Done",
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-3"
         },
         "commits": [
           {
@@ -182,7 +186,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-5"
         },
         "commits": [
           {
@@ -224,7 +229,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-5"
         },
         "commits": [
           {
@@ -266,7 +272,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-5"
         },
         "commits": [
           {
@@ -308,7 +315,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-5"
         },
         "commits": [
           {
@@ -350,7 +358,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-6"
         },
         "commits": [
           {
@@ -392,7 +401,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-6"
         },
         "commits": [
           {
@@ -430,11 +440,12 @@
         "jira": {
           "key": "CWPD-27",
           "summary": "Make video tile grid responsive and cap tile titles to two lines",
-          "status": "Backlog",
+          "status": "Done",
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-3"
         },
         "commits": [
           {
@@ -504,7 +515,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-2"
         },
         "commits": [
           {
@@ -546,7 +558,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-2"
         },
         "commits": [
           {
@@ -588,7 +601,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-2"
         },
         "commits": [
           {
@@ -632,7 +646,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-4"
         },
         "note": "Jira fixVersion set but no git commit references this ticket"
       },
@@ -645,7 +660,8 @@
           "issue_type": "Story",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": "CWPD-4"
         },
         "note": "Jira fixVersion set but no git commit references this ticket"
       },
@@ -654,11 +670,12 @@
         "jira": {
           "key": "CWPD-2",
           "summary": "Video Collection Jekyll Data Structure",
-          "status": "Backlog",
+          "status": "Done",
           "issue_type": "Epic",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": ""
         },
         "note": "Jira fixVersion set but no git commit references this ticket"
       },
@@ -671,7 +688,36 @@
           "issue_type": "Epic",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": ""
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      },
+      {
+        "key": "CWPD-37",
+        "jira": {
+          "key": "CWPD-37",
+          "summary": "Implement Jira+Git release notes generator with ISO 27001 audit traceability",
+          "status": "Backlog",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ],
+          "parent_key": "CWPD-6"
+        },
+        "note": "Jira fixVersion set but no git commit references this ticket"
+      },
+      {
+        "key": "CWPD-38",
+        "jira": {
+          "key": "CWPD-38",
+          "summary": "Store Jira API token as GitHub repository secret for CI pipeline",
+          "status": "Done",
+          "issue_type": "Story",
+          "fix_versions": [
+            "1.0.0"
+          ],
+          "parent_key": "CWPD-5"
         },
         "note": "Jira fixVersion set but no git commit references this ticket"
       },
@@ -684,7 +730,8 @@
           "issue_type": "Epic",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": ""
         },
         "note": "Jira fixVersion set but no git commit references this ticket"
       },
@@ -697,7 +744,8 @@
           "issue_type": "Epic",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": ""
         },
         "note": "Jira fixVersion set but no git commit references this ticket"
       },
@@ -710,7 +758,8 @@
           "issue_type": "Epic",
           "fix_versions": [
             "1.0.0"
-          ]
+          ],
+          "parent_key": ""
         },
         "note": "Jira fixVersion set but no git commit references this ticket"
       }
@@ -1525,6 +1574,53 @@
       "is_merge": false,
       "conv_type": null,
       "conv_breaking": false
+    }
+  ],
+  "orphan_tickets": [
+    {
+      "key": "CWPD-2",
+      "issue_type": "Epic",
+      "summary": "Video Collection Jekyll Data Structure",
+      "status": "Done",
+      "expected_parent_type": "Initiative",
+      "actual_parent_key": "",
+      "actual_parent_type": ""
+    },
+    {
+      "key": "CWPD-3",
+      "issue_type": "Epic",
+      "summary": "Video Tiles on Promo Videos Page",
+      "status": "Backlog",
+      "expected_parent_type": "Initiative",
+      "actual_parent_key": "",
+      "actual_parent_type": ""
+    },
+    {
+      "key": "CWPD-4",
+      "issue_type": "Epic",
+      "summary": "Individual Video Pages",
+      "status": "Backlog",
+      "expected_parent_type": "Initiative",
+      "actual_parent_key": "",
+      "actual_parent_type": ""
+    },
+    {
+      "key": "CWPD-5",
+      "issue_type": "Epic",
+      "summary": "SDLC Foundation - Testing and CI/CD",
+      "status": "Done",
+      "expected_parent_type": "Initiative",
+      "actual_parent_key": "",
+      "actual_parent_type": ""
+    },
+    {
+      "key": "CWPD-6",
+      "issue_type": "Epic",
+      "summary": "SDLC Documentation - Audit Ready",
+      "status": "Backlog",
+      "expected_parent_type": "Initiative",
+      "actual_parent_key": "",
+      "actual_parent_type": ""
     }
   ]
 }

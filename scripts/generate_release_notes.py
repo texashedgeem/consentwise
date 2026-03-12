@@ -185,7 +185,7 @@ def get_jira_tickets_by_version(jira_url, project, version, headers,
         # Prefer cursor-based pagination (nextPageToken) over offset-based (startAt)
         base_params = {
             "jql": jql,
-            "fields": "summary,status,issuetype,fixVersions,priority",
+            "fields": "summary,status,issuetype,fixVersions,priority,parent",
             "maxResults": PAGE_SIZE,
         }
         if next_page_token:
@@ -240,7 +240,7 @@ def get_jira_tickets_by_version(jira_url, project, version, headers,
 
 def get_jira_ticket_details(jira_url, ticket_key, headers):
     """Fetch a single ticket's details."""
-    url = f"{jira_url}/rest/api/3/issue/{ticket_key}?fields=summary,status,issuetype,fixVersions,priority"
+    url = f"{jira_url}/rest/api/3/issue/{ticket_key}?fields=summary,status,issuetype,fixVersions,priority,parent"
     data, err = jira_get(url, headers)
     if err:
         return None
@@ -255,6 +255,49 @@ def enrich_git_only_tickets(jira_url, ticket_keys, headers):
         if ticket:
             result[key] = ticket
     return result
+
+
+# ---------------------------------------------------------------------------
+# Orphan detection
+# ---------------------------------------------------------------------------
+
+# Expected parent type per issue type in the Jira hierarchy
+EXPECTED_PARENT_TYPE = {
+    "Story": "Epic",
+    "Epic": "Initiative",
+}
+
+
+def find_orphan_tickets(issues):
+    """Return issues that are missing their expected parent in the hierarchy.
+
+    Story   → expects parent of type Epic
+    Epic    → expects parent of type Initiative
+    Initiative / Task / Bug etc → no parent requirement enforced here
+    """
+    orphans = []
+    for issue in issues:
+        fields = issue["fields"]
+        issue_type = fields["issuetype"]["name"]
+        expected = EXPECTED_PARENT_TYPE.get(issue_type)
+        if not expected:
+            continue
+        parent = fields.get("parent") or {}
+        parent_type = (
+            parent.get("fields", {}).get("issuetype", {}).get("name", "")
+            if parent else ""
+        )
+        if parent_type != expected:
+            orphans.append({
+                "key": issue["key"],
+                "issue_type": issue_type,
+                "summary": fields["summary"],
+                "status": fields["status"]["name"],
+                "expected_parent_type": expected,
+                "actual_parent_key": parent.get("key", "") if parent else "",
+                "actual_parent_type": parent_type,
+            })
+    return orphans
 
 
 # ---------------------------------------------------------------------------
@@ -399,7 +442,7 @@ def group_traced_by_type(traced):
 
 
 def generate_markdown(version, from_ref, to_ref, traced, jira_only, git_only, untracked,
-                       commits, score, generated_at):
+                       commits, score, generated_at, orphans=None):
     lines = []
 
     lines.append(f"# Release Notes — v{version}")
@@ -419,6 +462,7 @@ def generate_markdown(version, from_ref, to_ref, traced, jira_only, git_only, un
     lines.append(f"| ⚠️  Jira only (no git commit ref) | {len(jira_only)} tickets |")
     lines.append(f"| ⚠️  Git only (no Jira fixVersion) | {len(git_only)} tickets |")
     lines.append(f"| 🔴 Untracked commits (no ticket) | {len(untracked)} commits |")
+    lines.append(f"| 🔗 Orphan tickets (missing parent) | {len(orphans or [])} tickets |")
     lines.append(f"| **Total commits** | **{total_commits}** (excl. merges) |")
     lines.append("")
 
@@ -496,6 +540,24 @@ def generate_markdown(version, from_ref, to_ref, traced, jira_only, git_only, un
             lines.append(f"- `{c['sha_short']}` {c['subject']} _({c['date'][:10]})_")
         lines.append("")
 
+    # --- Orphan tickets ---
+    if orphans:
+        lines.append("## 🔗 Orphan Tickets (Missing Parent)")
+        lines.append("")
+        lines.append("> These tickets have no parent in the Jira hierarchy.")
+        lines.append("> Stories should be under an Epic; Epics should be under an Initiative.")
+        lines.append("> Stories can be fixed via API. Epic → Initiative must be set manually in the Jira UI.")
+        lines.append("")
+        lines.append("| Ticket | Type | Summary | Expected Parent | Actual Parent |")
+        lines.append("|---|---|---|---|---|")
+        for o in orphans:
+            actual = o["actual_parent_key"] or "_(none)_"
+            lines.append(
+                f"| **{o['key']}** | {o['issue_type']} | {o['summary']} "
+                f"| {o['expected_parent_type']} | {actual} |"
+            )
+        lines.append("")
+
     # --- All commits log ---
     lines.append("## Full Commit Log")
     lines.append("")
@@ -518,18 +580,20 @@ def generate_markdown(version, from_ref, to_ref, traced, jira_only, git_only, un
 
 def generate_audit_log(version, from_ref, to_ref, traced, jira_only, git_only, untracked,
                         commits, score, generated_at, jira_url, jira_project, script_sha,
-                        jira_jql_used=None):
+                        jira_jql_used=None, orphans=None):
 
     def jira_summary(issue):
         if not issue:
             return None
         f = issue["fields"]
+        parent = f.get("parent") or {}
         return {
             "key": issue["key"],
             "summary": f["summary"],
             "status": f["status"]["name"],
             "issue_type": f["issuetype"]["name"],
             "fix_versions": [v["name"] for v in f.get("fixVersions", [])],
+            "parent_key": parent.get("key", "") if parent else "",
         }
 
     def commit_summary(c):
@@ -578,6 +642,7 @@ def generate_audit_log(version, from_ref, to_ref, traced, jira_only, git_only, u
             "git_only_tickets": len(git_only),
             "untracked_commits": len(untracked),
             "total_meaningful_commits": sum(1 for c in commits if not c["is_merge"]),
+            "orphan_tickets": len(orphans or []),
         },
         "reconciliation": {
             "traced": [
@@ -614,6 +679,7 @@ def generate_audit_log(version, from_ref, to_ref, traced, jira_only, git_only, u
             ],
         },
         "all_commits": [commit_summary(c) for c in commits],
+        "orphan_tickets": orphans or [],
     }
 
 
@@ -719,11 +785,20 @@ def main():
 
     score = traceability_score(commits, untracked, git_only)
 
+    # Detect orphan tickets across all Jira issues in scope
+    all_jira_issues = (
+        [item["jira"] for item in traced if item["jira"]]
+        + [item["jira"] for item in jira_only if item["jira"]]
+        + [item["jira"] for item in git_only if item["jira"]]
+    )
+    orphans = find_orphan_tickets(all_jira_issues) if all_jira_issues else []
+
     print(f"[release-notes] Traceability score: {score}%", file=sys.stderr)
     print(f"[release-notes]   TRACED:     {len(traced)} tickets", file=sys.stderr)
     print(f"[release-notes]   JIRA_ONLY:  {len(jira_only)} tickets", file=sys.stderr)
     print(f"[release-notes]   GIT_ONLY:   {len(git_only)} tickets", file=sys.stderr)
     print(f"[release-notes]   UNTRACKED:  {len(untracked)} commits", file=sys.stderr)
+    print(f"[release-notes]   ORPHANS:    {len(orphans)} tickets (missing parent)", file=sys.stderr)
 
     # --- Generate timestamp and script SHA ---
     generated_at = datetime.now(timezone.utc).isoformat()
@@ -732,12 +807,12 @@ def main():
     # --- Generate outputs ---
     md = generate_markdown(
         version, from_ref, to_ref, traced, jira_only, git_only, untracked,
-        commits, score, generated_at
+        commits, score, generated_at, orphans=orphans
     )
     audit = generate_audit_log(
         version, from_ref, to_ref, traced, jira_only, git_only, untracked,
         commits, score, generated_at, args.jira_url, args.jira_project, script_sha,
-        jira_jql_used=args.jira_jql
+        jira_jql_used=args.jira_jql, orphans=orphans
     )
     audit_json = json.dumps(audit, indent=2)
 
