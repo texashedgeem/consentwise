@@ -2,7 +2,7 @@
 title: "Open Banking Explained"
 order: 2
 slug: open-banking-explained
-youtube_id: TBD
+youtube_id: 3PtGXB0eofc
 youtube_start: 0
 summary: A clear introduction to Open Banking — what it is, how it works, and why it matters for consumers and businesses.
 description: >

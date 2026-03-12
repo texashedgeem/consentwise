@@ -2,7 +2,7 @@
 title: "TPP Registration and the Open Banking Directory"
 order: 5
 slug: tpp-registration-open-banking-directory
-youtube_id: TBD
+youtube_id: rypDMxN9uuM
 youtube_start: 0
 summary: How Third Party Providers register with the Open Banking Directory and obtain the credentials needed to access bank APIs.
 description: >
