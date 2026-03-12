@@ -4338,6 +4338,12 @@ h6.wp-block-heading {
    Video pages (CWPD-8)
    ============================================== */
 
+.section-banner {
+  height: 300px; }
+
+.section-banner .middle {
+  padding-top: 75px; }
+
 .video-hero {
   background-color: #202020;
   background-image: none;
