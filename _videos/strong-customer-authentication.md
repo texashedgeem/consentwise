@@ -2,7 +2,7 @@
 title: "PSD2 Strong Customer Authentication (SCA) Explained"
 order: 3
 slug: strong-customer-authentication
-youtube_id: TBD
+youtube_id: kJfTz-jypEU
 youtube_start: 0
 summary: What SCA means under PSD2, how it affects the payment journey, and the exemptions available to reduce friction.
 description: >

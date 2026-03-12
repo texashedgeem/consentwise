@@ -17,7 +17,7 @@ layout: default
     <div class="main-spacing">
       <div class="video-embed-wrapper">
         <iframe
-          src="https://www.youtube.com/embed/{{ page.youtube_id }}{% if page.youtube_start %}?start={{ page.youtube_start }}{% endif %}"
+          src="https://www.youtube.com/embed/{{ page.youtube_id }}?rel=0{% if page.youtube_start %}&start={{ page.youtube_start }}{% endif %}"
           title="{{ page.title }}"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -10,7 +10,11 @@ module.exports = defineConfig({
   testDir: './tests/e2e',
   timeout: 30000,
   retries: 0,
-  reporter: [['list'], ['html', { open: 'never', outputFolder: 'tests/reports' }]],
+  reporter: [
+    ['list'],
+    ['html', { open: 'never', outputFolder: 'tests/reports/html' }],
+    ['junit', { outputFile: 'tests/reports/junit/results.xml' }],
+  ],
   use: {
     baseURL: 'http://localhost:4001',
     headless: true,

@@ -2,7 +2,7 @@
 title: "UK Open Banking API Standards — A Technical Overview"
 order: 4
 slug: uk-open-banking-api-standards
-youtube_id: TBD
+youtube_id: YMYShcUJPz0
 youtube_start: 0
 summary: A technical walkthrough of the UK Open Banking Read/Write API standards and how banks must implement them.
 description: >
