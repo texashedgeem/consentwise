@@ -1,6 +1,9 @@
-name: CI — Playwright Tests on PR
+name: CI — Playwright Tests
 
 on:
+  push:
+    branches:
+      - '**'
   pull_request:
     branches:
       - main
@@ -55,10 +58,35 @@ jobs:
       - name: Run Playwright tests
         run: npm test
 
-      - name: Upload test report on failure
-        if: failure()
+      - name: Write job summary
+        if: always()
+        run: |
+          echo "## Playwright Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| | |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Run | [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Triggered by | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f tests/reports/junit/results.xml ]; then
+            TESTS=$(grep -o 'tests="[0-9]*"' tests/reports/junit/results.xml | head -1 | grep -o '[0-9]*')
+            FAILURES=$(grep -o 'failures="[0-9]*"' tests/reports/junit/results.xml | head -1 | grep -o '[0-9]*')
+            ERRORS=$(grep -o 'errors="[0-9]*"' tests/reports/junit/results.xml | head -1 | grep -o '[0-9]*')
+            PASSED=$((TESTS - FAILURES - ERRORS))
+            echo "| Tests run | $TESTS |" >> $GITHUB_STEP_SUMMARY
+            echo "| Passed | ✅ $PASSED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Failed | $( [ "$FAILURES" -gt 0 ] && echo "❌ $FAILURES" || echo "0" ) |" >> $GITHUB_STEP_SUMMARY
+            echo "| Errors | $( [ "$ERRORS" -gt 0 ] && echo "❌ $ERRORS" || echo "0" ) |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ JUnit report not found — tests may not have run." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload test reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
+          name: playwright-report-${{ github.sha }}
           path: tests/reports/
-          retention-days: 7
+          retention-days: 30

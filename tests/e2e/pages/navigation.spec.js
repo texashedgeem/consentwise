@@ -18,13 +18,13 @@ test.describe('Top navigation', () => {
     expect(page.url()).toContain('/about-us/');
   });
 
-  test('Learn nav item is present and links to /promo-videos/', async ({ page }) => {
-    const learnLink = page.locator('.primary-menu a[href="/promo-videos/"]');
+  test('Learn nav item is present and links to /learn/', async ({ page }) => {
+    const learnLink = page.locator('.primary-menu a[href="/learn/"]');
     await expect(learnLink).toBeVisible();
     await expect(learnLink).toHaveText('Learn');
     await learnLink.click();
     await waitForPageLoad(page);
-    expect(page.url()).toContain('/promo-videos/');
+    expect(page.url()).toContain('/learn/');
   });
 
   test('Services nav item links to /services/', async ({ page }) => {
