@@ -17,15 +17,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # full history needed to compute changelog
+          fetch-depth: 0  # full history required for changelog and release notes
 
       - name: Get latest tag
         id: get_tag
         run: |
-          # Fetch all tags
           git fetch --tags
 
-          # Get the latest semver tag, default to v0.0.0 if none exists
           LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
           if [ -z "$LATEST_TAG" ]; then
             LATEST_TAG="v0.0.0"
@@ -38,24 +36,19 @@ jobs:
         id: next_version
         run: |
           LATEST="${{ steps.get_tag.outputs.latest_tag }}"
-          # Strip the leading 'v' and split into parts
           VERSION="${LATEST#v}"
           MAJOR=$(echo $VERSION | cut -d. -f1)
           MINOR=$(echo $VERSION | cut -d. -f2)
           PATCH=$(echo $VERSION | cut -d. -f3)
 
-          # Determine bump type from commits since last tag
-          # feat! / fix! (breaking change) → major bump
-          # feat → minor bump
-          # fix/docs/chore/test/ci/style/refactor → patch bump
+          # feat!/fix! (breaking change) → major bump
+          # feat                         → minor bump
+          # everything else              → patch bump
           COMMITS=$(git log ${LATEST}..HEAD --pretty=format:"%s" 2>/dev/null || git log --pretty=format:"%s")
           if echo "$COMMITS" | grep -qE "^(feat|fix)!\("; then
-            MAJOR=$((MAJOR + 1))
-            MINOR=0
-            PATCH=0
+            MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0
           elif echo "$COMMITS" | grep -qE "^feat\("; then
-            MINOR=$((MINOR + 1))
-            PATCH=0
+            MINOR=$((MINOR + 1)); PATCH=0
           else
             PATCH=$((PATCH + 1))
           fi
@@ -64,78 +57,156 @@ jobs:
           echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
           echo "Next version: $NEW_TAG"
 
-      - name: Generate release notes
-        id: release_notes
-        run: |
-          LATEST="${{ steps.get_tag.outputs.latest_tag }}"
-          NEW_TAG="${{ steps.next_version.outputs.new_tag }}"
-          JIRA_BASE="https://open-banking.atlassian.net/browse"
-
-          # Get commits since last tag (or all commits if no previous tag)
-          if git rev-parse "$LATEST" >/dev/null 2>&1; then
-            RAW_COMMITS=$(git log ${LATEST}..HEAD --pretty=format:"- %s (%h)" --no-merges)
-          else
-            RAW_COMMITS=$(git log --pretty=format:"- %s (%h)" --no-merges | head -50)
-          fi
-
-          if [ -z "$RAW_COMMITS" ]; then
-            RAW_COMMITS="- No new commits since last release"
-          fi
-
-          # Replace CWPD-NNN references with Jira hyperlinks (markdown)
-          LINKED_COMMITS=$(echo "$RAW_COMMITS" | \
-            sed -E "s|(CWPD-[0-9]+)|[\1](${JIRA_BASE}/\1)|g")
-
-          # Categorise commits by type
-          FEAT_COMMITS=$(echo "$LINKED_COMMITS" | grep "^- feat(" || true)
-          FIX_COMMITS=$(echo "$LINKED_COMMITS" | grep "^- fix(" || true)
-          DOCS_COMMITS=$(echo "$LINKED_COMMITS" | grep "^- docs(" || true)
-          TEST_COMMITS=$(echo "$LINKED_COMMITS" | grep "^- test(" || true)
-          CI_COMMITS=$(echo "$LINKED_COMMITS" | grep -E "^- (ci|chore)(" || true)
-          OTHER_COMMITS=$(echo "$LINKED_COMMITS" | grep -vE "^- (feat|fix|docs|test|ci|chore)\(" || true)
-
-          # Build release notes
-          NOTES=""
-
-          if [ -n "$FEAT_COMMITS" ]; then
-            NOTES="${NOTES}## New Features\n${FEAT_COMMITS}\n\n"
-          fi
-          if [ -n "$FIX_COMMITS" ]; then
-            NOTES="${NOTES}## Bug Fixes\n${FIX_COMMITS}\n\n"
-          fi
-          if [ -n "$DOCS_COMMITS" ]; then
-            NOTES="${NOTES}## Documentation\n${DOCS_COMMITS}\n\n"
-          fi
-          if [ -n "$TEST_COMMITS" ]; then
-            NOTES="${NOTES}## Tests\n${TEST_COMMITS}\n\n"
-          fi
-          if [ -n "$CI_COMMITS" ]; then
-            NOTES="${NOTES}## CI / Chore\n${CI_COMMITS}\n\n"
-          fi
-          if [ -n "$OTHER_COMMITS" ]; then
-            NOTES="${NOTES}## Other Changes\n${OTHER_COMMITS}\n\n"
-          fi
-
-          NOTES="${NOTES}---\n*Release ${NEW_TAG} — auto-generated from commit history. Each CWPD ticket links to the corresponding Jira story.*"
-
-          # Write to file (avoids shell escaping issues with multiline)
-          printf "%b" "$NOTES" > /tmp/release_notes.md
-          cat /tmp/release_notes.md
-
-      - name: Create tag and GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create and push git tag
         run: |
           NEW_TAG="${{ steps.next_version.outputs.new_tag }}"
-
-          # Create and push the tag
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag -a "$NEW_TAG" -m "Release $NEW_TAG"
           git push origin "$NEW_TAG"
 
-          # Create the GitHub Release
+      # -----------------------------------------------------------------------
+      # Release notes: Jira + Git reconciliation
+      # Requires JIRA_TOKEN to be set as a GitHub repository secret.
+      # If JIRA_TOKEN is absent, the script falls back to git-only mode.
+      # -----------------------------------------------------------------------
+      - name: Generate release notes
+        id: release_notes
+        env:
+          JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
+        run: |
+          NEW_TAG="${{ steps.next_version.outputs.new_tag }}"
+          VERSION="${NEW_TAG#v}"
+
+          echo "Running release notes generator for ${NEW_TAG}..."
+          python3 scripts/generate_release_notes.py \
+            --version "$VERSION" \
+            --output-dir release-notes
+
+          # Confirm outputs exist
+          ls -lh "release-notes/v${VERSION}.md" "release-notes/audit/v${VERSION}.json"
+
+          # Expose version for downstream steps
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      # -----------------------------------------------------------------------
+      # Traceability gate — reads audit JSON and annotates the workflow run.
+      # Warns if score is below threshold; does not fail the build.
+      # Rationale: legacy repos start with low scores; the trend matters.
+      # -----------------------------------------------------------------------
+      - name: Traceability gate
+        run: |
+          VERSION="${{ steps.release_notes.outputs.version }}"
+          python3 - <<'EOF'
+          import json, sys, os
+
+          version = os.environ.get("VERSION")
+          path = f"release-notes/audit/v{version}.json"
+
+          with open(path) as f:
+              audit = json.load(f)
+
+          t = audit["traceability"]
+          score    = t["score_percent"]
+          traced   = t["fully_traced_tickets"]
+          jira_only = t["jira_only_tickets"]
+          git_only  = t["git_only_tickets"]
+          untracked = t["untracked_commits"]
+          total     = t["total_meaningful_commits"]
+
+          print(f"Traceability report for v{version}")
+          print(f"  Score         : {score}%")
+          print(f"  Fully traced  : {traced} tickets (Jira fixVersion set + git ref)")
+          print(f"  Jira only     : {jira_only} tickets (no matching git commit)")
+          print(f"  Git only      : {git_only} tickets (Jira fixVersion not set)")
+          print(f"  Untracked     : {untracked} commits (no ticket reference)")
+          print(f"  Total commits : {total} (merge commits excluded)")
+
+          # GitHub Actions annotations
+          print(f"::notice title=Traceability Score::v{version} — {score}% ({traced}/{total} commits fully traced)")
+
+          if jira_only > 0:
+              print(f"::warning title=Jira-only tickets::{jira_only} ticket(s) have fixVersion set but no git commit reference. Verify implementation evidence.")
+
+          if git_only > 0:
+              print(f"::warning title=Jira fixVersion missing::{git_only} ticket(s) referenced in git but Jira fixVersion not set. Update fixVersion in Jira.")
+
+          if untracked > 0:
+              threshold = 70
+              if score < threshold:
+                  print(f"::warning title=Low Traceability::{untracked} untracked commits lower score to {score}% (threshold: {threshold}%). Ensure all commits reference a Jira ticket.")
+              else:
+                  print(f"::notice title=Untracked Commits::{untracked} commit(s) have no ticket reference (score still above 70% threshold).")
+          EOF
+        env:
+          VERSION: ${{ steps.release_notes.outputs.version }}
+
+      # -----------------------------------------------------------------------
+      # GitHub Release: body from the generated markdown, audit JSON attached
+      # as a release asset (permanent, immutable — ISO 27001 evidence artefact).
+      # -----------------------------------------------------------------------
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NEW_TAG="${{ steps.next_version.outputs.new_tag }}"
+          VERSION="${{ steps.release_notes.outputs.version }}"
+
           gh release create "$NEW_TAG" \
             --title "Release $NEW_TAG" \
-            --notes-file /tmp/release_notes.md \
+            --notes-file "release-notes/v${VERSION}.md" \
             --latest
+
+          # Attach audit JSON as a release asset (permanent evidence artefact)
+          gh release upload "$NEW_TAG" \
+            "release-notes/audit/v${VERSION}.json#Audit Log v${VERSION} (ISO 27001 / SOC1)"
+
+      # -----------------------------------------------------------------------
+      # Upload both artefacts to Actions for pipeline-level retention.
+      # 400 days = maximum on GitHub. For long-term compliance archival,
+      # export to external storage (S3 / Azure Blob) via a separate workflow.
+      # -----------------------------------------------------------------------
+      - name: Upload release artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artefacts-${{ steps.next_version.outputs.new_tag }}
+          path: |
+            release-notes/v${{ steps.release_notes.outputs.version }}.md
+            release-notes/audit/v${{ steps.release_notes.outputs.version }}.json
+          retention-days: 400
+
+      # -----------------------------------------------------------------------
+      # Step summary — visible in the Actions run UI
+      # -----------------------------------------------------------------------
+      - name: Write step summary
+        env:
+          VERSION: ${{ steps.release_notes.outputs.version }}
+          REPO: ${{ github.repository }}
+          NEW_TAG: ${{ steps.next_version.outputs.new_tag }}
+        run: |
+          python3 - <<'EOF'
+          import json, os
+
+          version = os.environ["VERSION"]
+          tag     = os.environ["NEW_TAG"]
+          repo    = os.environ["REPO"]
+          path    = f"release-notes/audit/v{version}.json"
+
+          with open(path) as f:
+              audit = json.load(f)
+
+          t = audit["traceability"]
+          summary_path = os.environ.get("GITHUB_STEP_SUMMARY", "/dev/stdout")
+
+          with open(summary_path, "a") as f:
+              f.write(f"## Release {tag}\n\n")
+              f.write("| Metric | Value |\n|---|---|\n")
+              f.write(f"| Traceability score | **{t['score_percent']}%** |\n")
+              f.write(f"| Fully traced tickets | {t['fully_traced_tickets']} |\n")
+              f.write(f"| Jira-only tickets | {t['jira_only_tickets']} |\n")
+              f.write(f"| Git-only tickets | {t['git_only_tickets']} |\n")
+              f.write(f"| Untracked commits | {t['untracked_commits']} |\n")
+              f.write(f"| Total commits | {t['total_meaningful_commits']} |\n")
+              f.write(f"\nAudit log attached to [Release {tag}]")
+              f.write(f"(https://github.com/{repo}/releases/tag/{tag}) as `Audit Log {tag}`.\n")
+          EOF
