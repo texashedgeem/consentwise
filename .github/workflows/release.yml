@@ -162,6 +162,78 @@ jobs:
             "release-notes/audit/v${VERSION}.json#Audit Log v${VERSION} (ISO 27001 / SOC1)"
 
       # -----------------------------------------------------------------------
+      # Wiki: publish release notes as a versioned page and update the index.
+      # The wiki is a separate git repo at <repo>.wiki.git.
+      # GITHUB_TOKEN has write access when contents: write is set above.
+      # -----------------------------------------------------------------------
+      - name: Publish release notes to Wiki
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.release_notes.outputs.version }}
+          NEW_TAG: ${{ steps.next_version.outputs.new_tag }}
+          REPO: ${{ github.repository }}
+        run: |
+          VERSION="${{ steps.release_notes.outputs.version }}"
+          REPO="${{ github.repository }}"
+          WIKI_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.wiki.git"
+
+          # Clone wiki; initialise with a Home page if it has never been set up
+          if ! git clone "$WIKI_URL" wiki 2>/dev/null; then
+            mkdir wiki && cd wiki
+            git init
+            git remote add origin "$WIKI_URL"
+            echo "# ConsentWise Wiki" > Home.md
+            git add Home.md
+            git commit -m "Initialise wiki"
+            git push origin HEAD:master
+            cd ..
+          fi
+
+          cd wiki
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Copy versioned release notes page
+          cp "../release-notes/v${VERSION}.md" "Release-Notes-v${VERSION}.md"
+
+          # Regenerate index page
+          python3 - <<'PYEOF'
+          import os, glob, re
+          from pathlib import Path
+
+          version = os.environ["VERSION"]
+          pages   = sorted(glob.glob("Release-Notes-v*.md"), reverse=True)
+
+          lines = [
+              "# Release Notes",
+              "",
+              "Generated automatically on every production deployment.",
+              "Each release includes Jira + Git traceability and an ISO 27001 audit log.",
+              "",
+              "| Version | Date | Page |",
+              "|---|---|---|",
+          ]
+          for page in pages:
+              m = re.search(r'Release-Notes-v([\d.]+)\.md', page)
+              if not m:
+                  continue
+              ver  = m.group(1)
+              content = Path(page).read_text()
+              date_m  = re.search(r'Generated: (\d{4}-\d{2}-\d{2})', content)
+              date    = date_m.group(1) if date_m else "—"
+              lines.append(f"| v{ver} | {date} | [[Release-Notes-v{ver}]] |")
+
+          lines += ["", f"_Last updated: v{version}_", ""]
+          Path("Release-Notes.md").write_text("\n".join(lines))
+          print(f"Wiki index updated — {len(pages)} release(s) listed")
+          PYEOF
+
+          git add "Release-Notes-v${VERSION}.md" "Release-Notes.md"
+          git diff --cached --quiet && echo "No wiki changes" && exit 0
+          git commit -m "Release notes v${VERSION}"
+          git push origin HEAD:master
+
+      # -----------------------------------------------------------------------
       # Upload both artefacts to Actions for pipeline-level retention.
       # 400 days = maximum on GitHub. For long-term compliance archival,
       # export to external storage (S3 / Azure Blob) via a separate workflow.
