@@ -40,6 +40,7 @@ Last session: Session 3, 13 Mar 2026. PR #18 merged. 0 In Progress, 39 Backlog.
 - Show Jira preview before creating/updating tickets
 - Add Jira comments at: start of work, description enhancement, Done transition, backlog decisions
 - Never delete descriptions — only update or append
+- Before closing any ticket: ask Simon if he wants to test first; capture response/evidence as a Jira comment before transitioning to Done
 - $JIRA_TOKEN = open-banking.atlassian.net — do NOT use $JIRA_ZODIA here
 - Always Edit files — never Write/overwrite
 - Prompt before starting unticketted work
