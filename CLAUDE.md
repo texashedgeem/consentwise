@@ -11,10 +11,15 @@ Last session: Session 3, 13 Mar 2026. PR #18 merged. 0 In Progress, 39 Backlog.
 - **Repo**: `texashedgeem/consentwise` (GitHub)
 - **Live site**: https://consentwise.io
 - **Local path**: `/Users/simonhewins/repo_git/consentwise`
-- **Stack**: Jekyll → GitHub Pages. **Corrected 23 Jul 2026:** GitHub Pages actually
-  deploys from `feature/CWPD-1-v1-release`, not `main` — `main` is stale and missing
-  `/learn`, the video pages, and this file. Push to `main` does **not** auto-deploy.
-  Confirm/resolve this before trusting the old assumption anywhere else.
+- **Stack**: Jekyll → GitHub Pages (legacy build, source = `main` — confirmed via
+  `gh api repos/texashedgeem/consentwise/pages` 23 Jul 2026). Push to `main`
+  auto-deploys, as originally documented. **`main` is protected**: 1 required PR
+  review (approver: `simonhewinszodia`, Simon cannot self-approve) + passing
+  Playwright status check, `enforce_admins: true`. `feature/CWPD-1-v1-release` is a
+  long-lived dev branch — work lands there first and reaches production via PR into
+  `main` (see PR #18, merged 13 Mar 2026, for the pattern). A same-day correction was
+  briefly written here claiming Pages deployed from the feature branch — that was
+  wrong (caused by checking a stale, unfetched local `main` ref) and has been reverted.
 - **Local dev**: `bundle exec jekyll serve --port 4001 --detach` (port 4000 often in use)
 
 ## Jira
