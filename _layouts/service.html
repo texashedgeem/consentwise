@@ -2,6 +2,28 @@
 layout: default
 ---
 
+{% if page.price %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{{ page.title | escape }}",
+    "description": "{{ page.description | default: page.summary | escape }}",
+    "provider": {
+      "@type": "Organization",
+      "name": "ConsentWise"
+    },
+    "areaServed": "GB",
+    "offers": {
+      "@type": "Offer",
+      "price": "{{ page.price }}",
+      "priceCurrency": "{{ page.price_currency }}",
+      "description": "{{ page.price_unit | escape }}"
+    }
+  }
+</script>
+{% endif %}
+
 <section class="ts-2" style="background-image: url('/assets/images/{{ page.hero_image }}');">
   <div class="table" style="width: 100%; height: 100%;">
     <div class="middle">

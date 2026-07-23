@@ -4,3 +4,5 @@ source "https://rubygems.org"
 # GitHub Pages uses its own Jekyll version automatically.
 gem "jekyll", "~> 4.3"
 gem "webrick"
+gem "jekyll-seo-tag"
+gem "jekyll-sitemap"

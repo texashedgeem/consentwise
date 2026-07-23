@@ -4,6 +4,7 @@ order: 5
 slug: promo-videos
 hero_image: matthew-kwong-qJgW5ewKCO8-unsplash-e1664978813403.jpg
 summary: Produce a video of your Open Banking journey that you can use for marketing, training, or any other purpose.
+description: Produce a professional video of your Open Banking journey for marketing, training, or investor materials.
 related_services:
   - consent-for-rent
   - payment-testing

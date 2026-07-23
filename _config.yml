@@ -3,6 +3,18 @@ description: Open Banking Live Account Testing
 url: "https://consentwise.io"
 baseurl: ""
 
+# SEO (jekyll-seo-tag)
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+logo: /assets/images/ConsentWise-1.svg
+twitter:
+  card: summary
+social:
+  name: ConsentWise
+  links:
+    - https://consentwise.io
+
 # Collections
 collections:
   services:

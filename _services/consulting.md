@@ -4,6 +4,7 @@ order: 6
 slug: consulting
 hero_image: clem-onojeghuo-fY8Jr4iuPQM-unsplash.jpg
 summary: We provide Open Banking experts to help you connect your app or service to Banks.
+description: Hire Open Banking experts by the hour, day, or week to help connect your app to UK banks — plus permanent-hire recruitment support.
 related_services:
   - consent-for-rent
   - payment-testing
