@@ -4,6 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} - ConsentWise{% else %}ConsentWise{% endif %}</title>
+  {% seo title=false %}
+
+  <!-- Organization JSON-LD (CWPD-66) — site-wide, supplements jekyll-seo-tag's per-page output -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ConsentWise",
+      "url": "https://consentwise.io",
+      "logo": "https://consentwise.io/assets/images/ConsentWise-1.svg",
+      "description": "Open Banking live account testing — real UK bank accounts for AISP/PISP testing, payment testing, and consulting.",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Qeetoto Limited",
+        "identifier": "08605975"
+      }
+    }
+  </script>
 
   <!-- Google tag (gtag.js) — Consent Mode v2, default denied until a consent banner grants permission (CWPD-65) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TGS0PN0K4M"></script>

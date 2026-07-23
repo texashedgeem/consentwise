@@ -4,6 +4,10 @@ order: 2
 slug: payment-testing
 hero_image: payment_test.jpg
 summary: Our agents can execute live payments including bulk payments on business accounts to test your Open Banking Payments product.
+description: Test live Open Banking payments, including bulk payments on business accounts, with real UK bank accounts. Indicative pricing from £10 per transaction.
+price: "10.00"
+price_currency: GBP
+price_unit: per transaction (indicative)
 related_services:
   - consent-for-rent
   - expert-troubleshooting
