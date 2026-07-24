@@ -30,7 +30,7 @@ Last session: Session 3, 13 Mar 2026. PR #18 merged. 0 In Progress, 39 Backlog.
   -F dismiss_stale_reviews=true -F require_code_owner_reviews=false -F
   require_last_push_approval=false -F required_approving_review_count=1`. See
   `qeetoto_marketing_ceo/governance/decision-log.md` D-031/D-033 for the full history.
-- **Local dev**: `bundle exec jekyll serve --port 4001 --detach` (port 4000 often in use)
+- **Local dev**: `bundle exec jekyll serve --port 42005 --detach` (project id 05, apisaurus PORT-REGISTRY.md, ADR 0002 — was 4001, which had collided with hedgeem-v7)
 
 ## Jira
 
@@ -47,7 +47,7 @@ Last session: Session 3, 13 Mar 2026. PR #18 merged. 0 In Progress, 39 Backlog.
 
 - **Pre-commit hook**: `.githooks/commit-msg` — format: `TYPE[!](CWPD-NNN): description`
 - **Activate hook on new clone**: `git config core.hooksPath .githooks`
-- **Playwright**: `npm test` — requires Jekyll on port 4001. 14 tests across 3 specs.
+- **Playwright**: `npm test` — requires Jekyll on port 42005. 14 tests across 3 specs.
 - **CI**: `.github/workflows/ci.yml` — runs on every push
 - **Release**: `feat!(CWPD-NNN):` → major, `feat(` → minor, all else → patch
 - **Approver**: `simonhewinszodia` GitHub account (Simon cannot self-approve)
