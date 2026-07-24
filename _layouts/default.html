@@ -23,7 +23,7 @@
     }
   </script>
 
-  <!-- Google tag (gtag.js) — Consent Mode v2, default denied until a consent banner grants permission (CWPD-65) -->
+  <!-- Google tag (gtag.js) — Consent Mode v2, default denied until the cookie banner grants permission (CWPD-65, CWPD-67) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TGS0PN0K4M"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -34,6 +34,16 @@
       'ad_personalization': 'denied',
       'analytics_storage': 'denied'
     });
+
+    // Re-apply a previously-recorded choice before the first pageview fires,
+    // so returning visitors who already accepted aren't sent as denied.
+    try {
+      var cwConsent = localStorage.getItem('cw_analytics_consent');
+      if (cwConsent === 'granted') {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+    } catch (e) { /* localStorage unavailable (private mode etc.) — stay denied */ }
+
     gtag('js', new Date());
     gtag('config', 'G-TGS0PN0K4M');
   </script>
@@ -96,6 +106,68 @@
     .burger { z-index: 9001 !important; }
   </style>
 
+  <!-- Cookie consent banner (CWPD-67) -->
+  <style>
+    .cookie-banner {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9500;
+      background: #202020;
+      color: #fff;
+      padding: 20px 24px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.25);
+      font-family: 'Open Sans', sans-serif;
+    }
+    .cookie-banner.show { display: flex; }
+    .cookie-banner p {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      max-width: 640px;
+    }
+    .cookie-banner-actions {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .cookie-banner-actions button {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.4rem;
+      cursor: pointer;
+      border-radius: 100px;
+      padding: 10px 28px;
+      transition: 0.1s;
+    }
+    .cookie-banner-accept {
+      background: #ff214f;
+      border: 1px solid #ff214f;
+      color: #fff;
+    }
+    .cookie-banner-accept:hover {
+      background: #fff;
+      color: #ff214f;
+    }
+    .cookie-banner-decline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+    }
+    .cookie-banner-decline:hover {
+      border-color: #fff;
+    }
+    @media (max-width: 640px) {
+      .cookie-banner { flex-direction: column; text-align: center; padding: 18px; }
+      .cookie-banner-actions { width: 100%; justify-content: center; }
+    }
+  </style>
+
   <!-- Lordicon -->
   <script src="https://cdn.lordicon.com/pzdvqjsp.js"></script>
 </head>
@@ -142,6 +214,14 @@
 </nav>
 
 <div class="overlay"></div>
+
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie consent">
+  <p>We use Google Analytics to understand how visitors use this site. No analytics cookies are set unless you accept — declining won't affect your experience.</p>
+  <div class="cookie-banner-actions">
+    <button type="button" class="cookie-banner-decline" id="cookie-decline">Decline</button>
+    <button type="button" class="cookie-banner-accept" id="cookie-accept">Accept</button>
+  </div>
+</div>
 
 {{ content }}
 
@@ -225,6 +305,42 @@
       menuOpen ? closeMenu() : openMenu();
     });
     if (overlay) overlay.addEventListener('click', closeMenu);
+  });
+</script>
+
+<!-- Cookie consent banner script (CWPD-67) -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var STORAGE_KEY = 'cw_analytics_consent';
+    var banner  = document.getElementById('cookie-banner');
+    var accept  = document.getElementById('cookie-accept');
+    var decline = document.getElementById('cookie-decline');
+    if (!banner || !accept || !decline) return;
+
+    var stored;
+    try { stored = localStorage.getItem(STORAGE_KEY); } catch (e) { stored = null; }
+
+    // Only show the banner if no choice has been recorded yet.
+    if (!stored) banner.classList.add('show');
+
+    function recordChoice(value) {
+      try { localStorage.setItem(STORAGE_KEY, value); } catch (e) { /* private mode etc. */ }
+      banner.classList.remove('show');
+    }
+
+    accept.addEventListener('click', function () {
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+      recordChoice('granted');
+    });
+
+    decline.addEventListener('click', function () {
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { 'analytics_storage': 'denied' });
+      }
+      recordChoice('denied');
+    });
   });
 </script>
 
