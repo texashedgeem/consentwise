@@ -9,3 +9,5 @@ tests/reports/
 playwright-report/
 test-results/
 .claude/
+.dev-server.pid
+.dev-server.log

@@ -39,15 +39,15 @@ jobs:
         run: npx playwright install chromium --with-deps
 
       - name: Start Jekyll server
-        run: bundle exec jekyll serve --port 4001 --no-watch &
+        run: bundle exec jekyll serve --port 42005 --no-watch &
         env:
           JEKYLL_ENV: production
 
       - name: Wait for Jekyll to be ready
         run: |
-          echo "Waiting for Jekyll on port 4001..."
+          echo "Waiting for Jekyll on port 42005..."
           for i in $(seq 1 30); do
-            if curl -s -o /dev/null -w "%{http_code}" http://localhost:4001 | grep -q "200\|301\|302"; then
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:42005 | grep -q "200\|301\|302"; then
               echo "Jekyll is up after ${i}s"
               break
             fi
