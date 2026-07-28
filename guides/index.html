@@ -21,11 +21,12 @@ description: "Practical guides on Open Banking testing: sandbox limitations, liv
     <div class="main-spacing">
       <div class="auto mw-1000">
         <p>Practical, no-fluff guides on Open Banking testing: where sandboxes fall short, how to test against real UK bank accounts, and what to check before FCA authorisation or a release.</p>
-      </div>
 
-      <hr>
+        <hr>
 
-      <div class="auto mw-1000 guide-list">
+        <h2>Practical Open Banking Testing Guides</h2>
+
+        <div class="guide-list">
         {% assign sorted_guides = site.guides | sort: "date" | reverse %}
         {% for guide in sorted_guides %}
         <a class="guide-list-item" href="{{ guide.url }}">
@@ -110,6 +111,7 @@ description: "Practical guides on Open Banking testing: sandbox limitations, liv
           </div>
         </a>
         {% endfor %}
+        </div>
       </div>
     </div>
   </div>
