@@ -1,0 +1,59 @@
+---
+layout: default
+title: Guides
+permalink: /guides/
+hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
+description: Practical guides on Open Banking testing — sandbox limitations, live UK bank account testing, FCA authorisation prep, and more from ConsentWise.
+---
+
+<section class="ts-2 section-banner" style="background-image: url('/assets/images/{{ page.hero_image }}');">
+  <div class="table" style="width: 100%; height: 100%;">
+    <div class="middle">
+      <div class="main-page">
+        <h1 data-aos="zoom-in-up" data-aos-duration="800" class="white m-0">{{ page.title }}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="main-page">
+    <div class="main-spacing">
+      <div class="auto mw-1000">
+        <p>Practical, no-fluff guides on Open Banking testing — where sandboxes fall short, how to test against real UK bank accounts, and what to check before FCA authorisation or a release.</p>
+      </div>
+
+      <hr>
+
+      <div class="col-4">
+        {% assign sorted_guides = site.guides | sort: "date" | reverse %}
+        {% for guide in sorted_guides %}
+        <div class="flex-wrap-bottom-div">
+          <a class="m-0" href="{{ guide.url }}">
+            <img src="/assets/images/{{ guide.hero_image }}"
+                 class="projects-img mb-q br-5 img-hover"
+                 alt="{{ guide.title }}"
+                 title="{{ guide.title }}"
+                 loading="lazy">
+            <h4>{{ guide.title }}</h4>
+            <p class="fs-14">{{ guide.summary }}</p>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <div data-aos="zoom-in-up" data-aos-duration="800" class="main-page">
+      <div class="main-padding mt">
+        <div class="auto text-center">
+          <h3 class="white">Get in touch with one of our team today</h3>
+          <a class="btn pink-btn mt-es mb-0" href="https://open-banking.atlassian.net/servicedesk/customer/portal/1">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
