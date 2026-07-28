@@ -1,7 +1,7 @@
 ---
 title: "Open Banking Sandbox Testing Isn't Enough: When You Need Real Bank Accounts"
 description: "Why Open Banking sandboxes can't catch every integration bug, and how renting real, consenting UK bank accounts closes the gap before you go live or face FCA authorisation testing."
-summary: "Why sandboxes miss the SCA quirks, consent-flow variations, and real account data that break integrations in production — and how to close the gap before FCA authorisation testing."
+summary: "Why sandboxes miss the SCA quirks, consent-flow variations, and real account data that break integrations in production, and how to close the gap before FCA authorisation testing."
 icon: bank
 date: 2026-07-28
 ---

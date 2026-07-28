@@ -3,7 +3,7 @@ layout: default
 title: Guides
 permalink: /guides/
 hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
-description: Practical guides on Open Banking testing — sandbox limitations, live UK bank account testing, FCA authorisation prep, and more from ConsentWise.
+description: "Practical guides on Open Banking testing: sandbox limitations, live UK bank account testing, FCA authorisation prep, and more from ConsentWise."
 ---
 
 <section class="ts-2 section-banner" style="background-image: url('/assets/images/{{ page.hero_image }}');">
@@ -20,18 +20,17 @@ description: Practical guides on Open Banking testing — sandbox limitations, l
   <div class="main-page">
     <div class="main-spacing">
       <div class="auto mw-1000">
-        <p>Practical, no-fluff guides on Open Banking testing — where sandboxes fall short, how to test against real UK bank accounts, and what to check before FCA authorisation or a release.</p>
+        <p>Practical, no-fluff guides on Open Banking testing: where sandboxes fall short, how to test against real UK bank accounts, and what to check before FCA authorisation or a release.</p>
       </div>
 
       <hr>
 
-      <div class="col-4 guide-tile-grid">
+      <div class="auto mw-1000 guide-list">
         {% assign sorted_guides = site.guides | sort: "date" | reverse %}
         {% for guide in sorted_guides %}
-        <div class="flex-wrap-bottom-div">
-          <a class="m-0" href="{{ guide.url }}">
-            <div class="guide-tile-icon mb-q br-5 img-hover" title="{{ guide.title }}">
-              {% case guide.icon %}
+        <a class="guide-list-item" href="{{ guide.url }}">
+          <div class="guide-list-icon" title="{{ guide.title }}">
+            {% case guide.icon %}
               {% when "bank" %}
               <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M8 20 L24 10 L40 20"/>
@@ -104,10 +103,12 @@ description: Practical guides on Open Banking testing — sandbox limitations, l
               </svg>
               {% endcase %}
             </div>
+          <div class="guide-list-content">
             <h4>{{ guide.title }}</h4>
             <p class="fs-14">{{ guide.summary }}</p>
-          </a>
-        </div>
+            <span class="guide-list-more">Read guide <span aria-hidden="true">&gt;</span></span>
+          </div>
+        </a>
         {% endfor %}
       </div>
     </div>
