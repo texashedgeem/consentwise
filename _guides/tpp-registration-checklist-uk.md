@@ -2,7 +2,7 @@
 title: "TPP Registration Checklist: What UK Regulators Actually Check Before You Go Live"
 description: "A practical walkthrough of what UK Third Party Provider registration actually involves, from FCA authorisation type to Open Banking Directory onboarding, and where real testing fits in."
 summary: "What UK Third Party Provider registration actually involves, from choosing the right FCA authorisation type to Open Banking Directory onboarding, and where real testing fits."
-hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
+icon: clipboard-check
 date: 2026-07-28
 facts-verified: 2026-07-28
 ---

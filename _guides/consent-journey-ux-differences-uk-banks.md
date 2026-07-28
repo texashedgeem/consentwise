@@ -2,7 +2,7 @@
 title: "Consent Journey UX Differences Across UK Banks: A Developer's Field Guide"
 description: "Open Banking specifies what a consent journey must accomplish, not how it looks or how many steps it takes. Here's what actually varies bank to bank, and why it matters for your integration."
 summary: "The specification says what a consent journey must accomplish, not how it looks or how many steps it takes. Here's what actually varies bank to bank."
-hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
+icon: sliders
 date: 2026-07-28
 facts-verified: 2026-07-28
 ---

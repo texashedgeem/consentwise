@@ -2,7 +2,7 @@
 title: "Build vs Rent: The Hidden Cost of Building Your Own Open Banking Test Rig"
 description: "Building your own real-bank test infrastructure for Open Banking looks cheaper on paper than renting access. It rarely is, once you count the time, the bank relationships, and the maintenance."
 summary: "Your own real-bank test rig looks cheaper on paper. It rarely is once you count the bank relationships, the maintenance, and the time you're not spending on your actual product."
-hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
+icon: scale
 date: 2026-07-28
 facts-verified: 2026-07-28
 ---

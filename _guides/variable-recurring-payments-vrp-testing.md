@@ -2,7 +2,7 @@
 title: "Variable Recurring Payments (VRP) Testing: What Sandboxes Get Wrong"
 description: "VRP consent setup and individual payment execution are two separate flows with different failure modes. Sandboxes tend to simplify both. Here's what to actually test."
 summary: "VRP consent setup and each individual payment are separate flows with different failure modes, and sandboxes tend to flatten both into one simplified path."
-hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
+icon: repeat
 date: 2026-07-28
 facts-verified: 2026-07-28
 ---

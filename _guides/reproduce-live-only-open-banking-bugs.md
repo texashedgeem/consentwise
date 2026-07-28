@@ -2,7 +2,7 @@
 title: "How to Reproduce a Live-Only Open Banking Bug (Without Guessing)"
 description: "Some Open Banking bugs only show up against real bank accounts and never reproduce in a sandbox. Guessing at the cause wastes time. Here's a more reliable way to isolate and confirm the fix."
 summary: "Some bugs only show up against real bank accounts and never reproduce in a sandbox. Guessing at the cause wastes time. A more reliable way to isolate and confirm the fix."
-hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
+icon: bug
 date: 2026-07-28
 facts-verified: 2026-07-28
 ---

@@ -2,7 +2,7 @@
 title: "Testing Bulk and Business Payments Without a Business Bank Account"
 description: "Bulk payment testing for Open Banking products is hard because you need a business account willing to be used as a test target, and most banks won't offer that for free. Here's how teams get around it."
 summary: "Bulk payment testing needs a business account willing to be your test target. Most banks won't offer one for free. Here's the workaround."
-hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
+icon: banknotes
 date: 2026-07-28
 facts-verified: 2026-07-28
 ---
