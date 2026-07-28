@@ -4408,6 +4408,18 @@ h6.wp-block-heading {
 .video-tile-grid .fs-14 {
   color: #555; }
 
+.guide-tile-grid .projects-img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover; }
+
+.guide-tile-grid h4 {  display: -webkit-box;  -webkit-line-clamp: 2;  -webkit-box-orient: vertical;  overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-size: 1.5rem; }
+
+.guide-tile-grid .fs-14 {
+  color: #555; }
+
 .video-tag {
   display: inline-block;
   background-color: #f5f5f5;
