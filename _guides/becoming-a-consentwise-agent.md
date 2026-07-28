@@ -2,7 +2,7 @@
 title: "Becoming a ConsentWise Agent: How Real Bank Account Testing Actually Works (and Is It Safe)"
 description: "ConsentWise's Agents use their own UK bank accounts to help fintechs test Open Banking apps and earn secondary income. Here's what that actually involves, and why it doesn't mean handing over your banking credentials."
 summary: "ConsentWise's Agents use their own UK bank accounts to help fintechs test Open Banking apps and earn secondary income. What that actually involves, and why it doesn't mean sharing your banking credentials."
-hero_image: austin-kehmeier-lyiKExA4zQA-unsplash.jpg
+icon: agent
 date: 2026-07-28
 facts-verified: 2026-07-28
 ---

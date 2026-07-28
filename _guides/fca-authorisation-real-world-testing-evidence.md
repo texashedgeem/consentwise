@@ -2,7 +2,7 @@
 title: "FCA Authorisation as an AISP or PISP: What 'Real World Testing' Evidence Actually Means"
 description: "The FCA doesn't hand you a testing checklist for AISP or PISP authorisation, but your systems and controls review lives or dies on whether your integration actually works. Here's what real testing evidence looks like."
 summary: "The FCA won't give you a testing checklist, but your authorisation review depends on proving your integration actually works. What real evidence looks like, and how to get it."
-hero_image: annie-spratt-FSFfEQkd1sc-unsplash.jpg
+icon: shield-check
 date: 2026-07-28
 facts-verified: 2026-07-28
 ---
