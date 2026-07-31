@@ -23,29 +23,66 @@
     }
   </script>
 
-  <!-- Google tag (gtag.js) — Consent Mode v2, default denied until the cookie banner grants permission (CWPD-65, CWPD-67) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TGS0PN0K4M"></script>
+  <!-- Internal tester opt-out (CWPD-78) — must run before any analytics bootstrap.
+       ?internal=1 sets a per-browser localStorage flag so the owner's own testing
+       traffic never reaches GA4 (IP/login state aren't reliable signals here);
+       ?internal=0 clears it. Either param is stripped from the URL immediately. -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('consent', 'default', {
-      'ad_storage': 'denied',
-      'ad_user_data': 'denied',
-      'ad_personalization': 'denied',
-      'analytics_storage': 'denied'
-    });
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.has('internal')) {
+          if (params.get('internal') === '1') {
+            localStorage.setItem('cw_internal_tester', '1');
+          } else if (params.get('internal') === '0') {
+            localStorage.removeItem('cw_internal_tester');
+          }
+          params.delete('internal');
+          var newQuery = params.toString();
+          var newUrl = window.location.pathname + (newQuery ? '?' + newQuery : '') + window.location.hash;
+          history.replaceState(null, '', newUrl);
+        }
+      } catch (e) { /* localStorage/URL APIs unavailable (private mode etc.) */ }
 
-    // Re-apply a previously-recorded choice before the first pageview fires,
-    // so returning visitors who already accepted aren't sent as denied.
-    try {
-      var cwConsent = localStorage.getItem('cw_analytics_consent');
-      if (cwConsent === 'granted') {
-        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      try {
+        window.__cwInternal = localStorage.getItem('cw_internal_tester') === '1';
+      } catch (e) {
+        window.__cwInternal = false;
       }
-    } catch (e) { /* localStorage unavailable (private mode etc.) — stay denied */ }
+    })();
+  </script>
 
-    gtag('js', new Date());
-    gtag('config', 'G-TGS0PN0K4M');
+  <!-- Google tag (gtag.js) — Consent Mode v2, default denied until the cookie banner grants permission (CWPD-65, CWPD-67) -->
+  <!-- Skipped entirely for internal testers (CWPD-78): gtag never becomes defined and the
+       GA4 script tag is never injected, so zero data reaches GA4 for that browser. -->
+  <script>
+    if (!window.__cwInternal) {
+      var cwGtagScript = document.createElement('script');
+      cwGtagScript.async = true;
+      cwGtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-TGS0PN0K4M';
+      document.head.appendChild(cwGtagScript);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+      });
+
+      // Re-apply a previously-recorded choice before the first pageview fires,
+      // so returning visitors who already accepted aren't sent as denied.
+      try {
+        var cwConsent = localStorage.getItem('cw_analytics_consent');
+        if (cwConsent === 'granted') {
+          gtag('consent', 'update', { 'analytics_storage': 'granted' });
+        }
+      } catch (e) { /* localStorage unavailable (private mode etc.) — stay denied */ }
+
+      gtag('js', new Date());
+      gtag('config', 'G-TGS0PN0K4M');
+    }
   </script>
 
   <!-- Fonts -->
