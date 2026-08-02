@@ -2,8 +2,18 @@
 
 ## Current Focus
 
-**Session 4: ticket closing sweep (CWPD-1,2,3,4,6,27,28,30,31,33,34,35,36,37), then CWPD-26 Phase 2 Playwright tests.**
-Last session: Session 3, 13 Mar 2026. PR #18 merged. 0 In Progress, 39 Backlog.
+**Snapshot reconciliation, 2 Aug 2026 — Current Focus had drifted since Session 3 (13 Mar 2026); this replaces it with where things actually stand today, not a full session-by-session history (45 commits happened in between — see `git log` or GrowthOS's `governance/decision-log.md` for that detail).**
+- **Live site**: consentwise.io on GitHub Pages/Jekyll (unchanged), day-to-day managed by GrowthOS (`qeetoto_marketing_ceo` repo), which onboarded ConsentWise as a client 23 Jul 2026 (D-027).
+- **`main` branch protection is PERMANENTLY relaxed** (required PR review = 0) — this is a standing decision (D-071, 1 Aug 2026), not "until further notice." Do not treat the restore command below as a pending action.
+- **Analytics**: GA4 live since 23 Jul 2026, Consent Mode v2 (default-denied), confirmed reporting real visitor data as of 31 Jul 2026 (D-064).
+- **SEO**: sitemap, robots.txt, meta descriptions, Organization+Service JSON-LD with pricing, live since 23 Jul 2026.
+- **Content**: 9 guides published under `/guides` (new Jekyll collection + layout), governed by a standing "notify-after" publishing grant (PL-18) — GrowthOS can publish new guides in this lane without asking each time.
+- **Internal-traffic exclusion**: a `?internal=1`/localStorage flag keeps GrowthOS's own testing out of GA4 (CWPD-78, merged 31 Jul 2026).
+- **Jekyll-to-Vercel/Next.js migration**: evaluated and parked, no work scheduled.
+- **Cookieless analytics baseline (Cloudflare Web Analytics)**: proposed and parked, not implemented.
+- **Jira**: 0 In Progress, 57 Backlog, 26 Done (CWPD project, live count 2 Aug 2026).
+
+For detail on any of the above, see `qeetoto_marketing_ceo/backlog.md`'s C-* rows and `governance/decision-log.md` — this repo's own `development_session_log/` hasn't been kept current since Session 3; that gap is real and not fixed by this snapshot alone.
 > Update this section at the end of every session.
 
 ## Project Overview
