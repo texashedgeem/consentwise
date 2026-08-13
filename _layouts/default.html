@@ -384,5 +384,24 @@
   });
 </script>
 
+<!-- Contact Us / Request Test click tracking (CMP-02) — event-delegated so it covers
+     every current and future link to the Service Desk portal without touching each
+     anchor individually. Uses the same `typeof gtag === 'function'` gate as the
+     cookie-banner handlers above: internal testers never get gtag defined at all
+     (CWPD-78), and declined-consent visitors still call gtag but Consent Mode v2
+     keeps that anonymized at Google's end, so no separate gating logic is needed. -->
+<script>
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest('a[href*="open-banking.atlassian.net/servicedesk/customer/portal/1"]');
+    if (!link) return;
+    if (typeof gtag === 'function') {
+      gtag('event', 'contact_us_click', {
+        'link_url': link.href,
+        'page_path': window.location.pathname
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
