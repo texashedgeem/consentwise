@@ -4422,9 +4422,6 @@ h6.wp-block-heading {
   color: inherit;
   transition: 0.2s; }
 
-.guide-list-item:first-child {
-  padding-top: 0; }
-
 .guide-list-item:hover {
   background: #fafafa; }
 
