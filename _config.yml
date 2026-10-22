@@ -49,6 +49,22 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  # Internal / developer files — never publish (see security incident write-up)
+  - CLAUDE.md
+  - CONTRIBUTING.md
+  - SDLC.md
+  - development_session_log
+  - log
+  - release-notes
+  - scripts
+  - tests
+  - test-results
+  - package.json
+  - package-lock.json
+  - playwright.config.js
+  - public
+  # Draft video page (placeholder youtube_id) not linked from anywhere on the site
+  - _videos/open-banking-testing-best-practices.md
 
 # Markdown
 markdown: kramdown
